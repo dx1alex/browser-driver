@@ -1,7 +1,7 @@
 {
-  "name": "ts-npm-module",
+  "name": "browser-driver",
   "version": "0.0.1",
-  "description": "A sample TypeScript npm module",
+  "description": "browser-driver",
   "main": "js/index.js",
   "typings": "js/index",
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dx1alex/ts-npm-module.git"
+    "url": "git+https://github.com/dx1alex/browser-driver.git"
   },
   "keywords": [
     "typescript",
@@ -17,8 +17,7 @@
   ],
   "author": "dx1alex@gmail.com",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/dx1alex/ts-npm-module.git"
-  },
-  "homepage": "https://github.com/dx1alex/ts-npm-module.git"
+  "dependencies": {
+    "webdriver-wire-protocol": "git+https://github.com/dx1alex/webdriver-wire-protocol.git"
+  }
 }
