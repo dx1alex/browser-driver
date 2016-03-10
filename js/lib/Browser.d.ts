@@ -1,6 +1,6 @@
 import Webdriver from 'webdriver-wire-protocol';
-import Element from './Element';
-export default class Browser {
+import { Element } from './Element';
+export declare class Browser {
     options: any;
     gm: any;
     anticaptcha: any;

@@ -1,5 +1,5 @@
 import Webdriver from 'webdriver-wire-protocol'
-import Element from './Element'
+import {Element} from './Element'
 import checkUnicode from './helpers/checkUnicode'
 import findStrategy from './helpers/findStrategy'
 import {addField, scroll} from './scripts'
@@ -13,7 +13,7 @@ const KEYS = [
   "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12"
 ]
 
-export default class Browser {
+export class Browser {
   gm = null
   anticaptcha = null
 

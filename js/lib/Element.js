@@ -284,5 +284,4 @@ class Element {
         }, type);
     }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = Element;
+exports.Element = Element;

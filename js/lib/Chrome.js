@@ -1,7 +1,7 @@
 "use strict";
 const Browser_1 = require('./Browser');
 const path = require('path');
-class Chrome extends Browser_1.default {
+class Chrome extends Browser_1.Browser {
     constructor(options) {
         super(options);
     }
@@ -9,8 +9,7 @@ class Chrome extends Browser_1.default {
         return super.start(updateOptions(this.options, options));
     }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = Chrome;
+exports.Chrome = Chrome;
 function updateOptions(options, opt) {
     options = clone(options);
     if (opt)

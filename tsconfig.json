@@ -32,6 +32,7 @@
         "./lib/scripts/scroll.ts",
         "./lib/scripts/setAttribute.ts",
         "./lib/scripts/setProperty.ts",
+        "./test/test.ts",
         "./typings/node/node.d.ts",
         "./typings/tsd.d.ts"
     ],

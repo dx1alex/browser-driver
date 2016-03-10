@@ -293,7 +293,7 @@ class Browser {
     switchFrame(id) {
         return __awaiter(this, void 0, void 0, function* () {
             id = id || null;
-            if (id instanceof Element_1.default) {
+            if (id instanceof Element_1.Element) {
                 id = yield id.ELEMENT;
             }
             yield this.webdriver.switchToFrame({ sessionId: this.sessionId, id: id });
@@ -316,7 +316,7 @@ class Browser {
     }
     capture(path, crop, offset) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (typeof crop === 'string' || crop instanceof Element_1.default) {
+            if (typeof crop === 'string' || crop instanceof Element_1.Element) {
                 const em = this.element(crop);
                 const size = yield em.size();
                 const location = yield em.locationInView();
@@ -582,10 +582,10 @@ class Browser {
         });
     }
     element(selector, from) {
-        if (selector instanceof Element_1.default) {
+        if (selector instanceof Element_1.Element) {
             return selector;
         }
-        return new Element_1.default(selector || null, this, from);
+        return new Element_1.Element(selector || null, this, from);
     }
     $(selector, from) {
         return this.$_ = this.element(selector, from);
@@ -594,11 +594,11 @@ class Browser {
         let _elements = (res) => {
             let elements = [];
             for (let id of res.value)
-                elements.push(new Element_1.default(selector, this, null, id.ELEMENT));
+                elements.push(new Element_1.Element(selector, this, null, id.ELEMENT));
             return elements;
         };
         if (from) {
-            if (from instanceof Element_1.default) {
+            if (from instanceof Element_1.Element) {
                 return from.ELEMENT.then(res => {
                     return this.webdriver.findChildElements(Object.assign({ sessionId: this.sessionId, id: res }, findStrategy_1.default(selector)));
                 })
@@ -628,5 +628,4 @@ class Browser {
     get _$$_() { return this._$$_; }
     set _$$_(val) { this._$$_ = val; }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = Browser;
+exports.Browser = Browser;

@@ -1,7 +1,7 @@
-import Browser from './Browser'
+import {Browser} from './Browser'
 import * as path from 'path'
 
-class Chrome extends Browser {
+export class Chrome extends Browser {
   constructor(options) {
     super(options)
   }
@@ -9,8 +9,6 @@ class Chrome extends Browser {
     return super.start(updateOptions(this.options, options))
   }
 }
-
-export default Chrome
 
 function updateOptions(options: any, opt?: any) {
   options = clone(options)

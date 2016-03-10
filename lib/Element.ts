@@ -1,11 +1,11 @@
 import Webdriver from 'webdriver-wire-protocol'
-import Browser from './Browser'
+import {Browser} from './Browser'
 import checkUnicode from './helpers/checkUnicode'
 import findStrategy from './helpers/findStrategy'
 import parseCSS from './helpers/parseCSS'
 import {setAttribute, setProperty, dispatchEvent, addEventListener} from './scripts'
 
-export default class Element {
+export class Element {
   id: Promise<string> = null
   query: Locator = null
   selector: string = null

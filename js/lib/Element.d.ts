@@ -1,5 +1,5 @@
-import Browser from './Browser';
-export default class Element {
+import { Browser } from './Browser';
+export declare class Element {
     browser: Browser;
     id: Promise<string>;
     query: Locator;
