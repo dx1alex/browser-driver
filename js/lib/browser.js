@@ -622,10 +622,8 @@ class Browser {
     }
     $$(selector, from) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this._$$_ = yield this.elements(selector, from);
+            return this.$$_ = yield this.elements(selector, from);
         });
     }
-    get _$$_() { return this._$$_; }
-    set _$$_(val) { this._$$_ = val; }
 }
 exports.Browser = Browser;

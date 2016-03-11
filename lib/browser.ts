@@ -499,10 +499,8 @@ export class Browser {
       .then(_elements)
   }
   async $$(selector: string, from?: string | Element): Promise<Element[]> {
-    return this._$$_ = await this.elements(selector, from)
+    return this.$$_ = await this.elements(selector, from)
   }
-  get _$$_() { return this._$$_ }
-  set _$$_(val: Element[]) { this._$$_ = val }
 }
 
 // TODO:
