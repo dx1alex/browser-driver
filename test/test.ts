@@ -7,6 +7,14 @@ const bro = new Browser({
   }
 })
 
-bro.start().then(() => {
-  bro.url('http://google.com')
-})
+main()
+async function main() {
+  try {
+    await bro.start()
+    await bro.url('http://google.com')
+    console.log(await bro.title())
+  }
+  catch (e) {
+    console.log(e)
+  }
+}
