@@ -1,5 +1,5 @@
 import Webdriver from 'webdriver-wire-protocol'
-import {Element} from './Element'
+import {Element} from './element'
 import checkUnicode from './helpers/checkUnicode'
 import findStrategy from './helpers/findStrategy'
 import {addField, scroll} from './scripts'

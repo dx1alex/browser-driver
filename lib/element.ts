@@ -1,5 +1,5 @@
 import Webdriver from 'webdriver-wire-protocol'
-import {Browser} from './Browser'
+import {Browser} from './browser'
 import checkUnicode from './helpers/checkUnicode'
 import findStrategy from './helpers/findStrategy'
 import parseCSS from './helpers/parseCSS'

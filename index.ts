@@ -1,2 +1,2 @@
-export * from './lib/Browser'
-export * from './lib/Chrome'
+export * from './lib/browser'
+export * from './lib/chrome'
