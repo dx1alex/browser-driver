@@ -7,8 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments)).next());
     });
 };
-const _1 = require('../');
-const bro = new _1.Browser({
+const index_1 = require('../index');
+const bro = new index_1.Browser({
     init: { url: 'http://localhost:9515' },
     desiredCapabilities: {
         browserName: 'chrome'

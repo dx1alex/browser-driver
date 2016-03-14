@@ -1,4 +1,4 @@
-import {Browser} from '../'
+import {Browser} from '../index'
 
 const bro = new Browser({
   init: { url: 'http://localhost:9515' },
