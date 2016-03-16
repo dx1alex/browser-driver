@@ -517,6 +517,15 @@ export class Browser {
 // mouseScroll()
 // table()
 
+export interface ElementBuilder {
+  (selector: string): Element
+  (selector: Element): Element
+  (selector: string, from: string): Element
+  (selector: string, from: Element): Element
+  (selector: Element, from: string): Element
+  (selector: Element, from: Element): Element
+  (): Element
+}
 
 export interface TabPosition {
   x: number

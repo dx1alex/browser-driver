@@ -74,6 +74,15 @@ export declare class Browser {
     elements(selector: string, from?: string | Element): Promise<Element[]>;
     $$(selector: string, from?: string | Element): Promise<Element[]>;
 }
+export interface ElementBuilder {
+    (selector: string): Element;
+    (selector: Element): Element;
+    (selector: string, from: string): Element;
+    (selector: string, from: Element): Element;
+    (selector: Element, from: string): Element;
+    (selector: Element, from: Element): Element;
+    (): Element;
+}
 export interface TabPosition {
     x: number;
     y: number;
