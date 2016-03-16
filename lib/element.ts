@@ -1,8 +1,6 @@
 import Webdriver from 'webdriver-wire-protocol'
 import {Browser} from './browser'
-import checkUnicode from './helpers/checkUnicode'
-import findStrategy from './helpers/findStrategy'
-import parseCSS from './helpers/parseCSS'
+import {checkUnicode, findStrategy, parseCSS} from './helpers'
 import {setAttribute, setProperty, dispatchEvent, addEventListener} from './scripts'
 
 export class Element {

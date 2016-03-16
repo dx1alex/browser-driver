@@ -68,8 +68,6 @@ const UNICODE_CHARACTERS = {
   'Zenkaku_Hankaku': '\uE040'
 }
 
-function checkUnicode(value) {
+export function checkUnicode(value) {
   return UNICODE_CHARACTERS.hasOwnProperty(value) ? [UNICODE_CHARACTERS[value]] : value.split('')
 }
-
-export default checkUnicode

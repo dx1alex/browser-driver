@@ -9,8 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const webdriver_wire_protocol_1 = require('webdriver-wire-protocol');
 const element_1 = require('./element');
-const checkUnicode_1 = require('./helpers/checkUnicode');
-const findStrategy_1 = require('./helpers/findStrategy');
+const helpers_1 = require('./helpers');
 const scripts_1 = require('./scripts');
 const KEYS = [
     "NULL", "Cancel", "Help", "Back_space", "Tab", "Clear", "Return", "Enter", "Shift", "Control", "Alt", "Meta",
@@ -309,7 +308,7 @@ class Browser {
             const k = [].concat(keys, more);
             let value = [];
             for (let charSet of k) {
-                value = value.concat(checkUnicode_1.default(charSet));
+                value = value.concat(helpers_1.checkUnicode(charSet));
             }
             yield this.webdriver.type({ sessionId: this.sessionId, value: value });
         });
@@ -600,16 +599,16 @@ class Browser {
         if (from) {
             if (from instanceof element_1.Element) {
                 return from.ELEMENT.then(res => {
-                    return this.webdriver.findChildElements(Object.assign({ sessionId: this.sessionId, id: res }, findStrategy_1.default(selector)));
+                    return this.webdriver.findChildElements(Object.assign({ sessionId: this.sessionId, id: res }, helpers_1.findStrategy(selector)));
                 })
                     .then(_elements);
             }
             else if (typeof from === 'string') {
-                return this.webdriver.findElement(Object.assign({ sessionId: this.sessionId }, findStrategy_1.default(from)))
+                return this.webdriver.findElement(Object.assign({ sessionId: this.sessionId }, helpers_1.findStrategy(from)))
                     .then(res => {
                     return this.webdriver.findChildElements(Object.assign({
                         sessionId: this.sessionId, id: res.value.ELEMENT
-                    }, findStrategy_1.default(selector)));
+                    }, helpers_1.findStrategy(selector)));
                 })
                     .then(_elements);
             }
@@ -617,7 +616,7 @@ class Browser {
                 throw new TypeError('child must be: object Element or string of css selector');
             }
         }
-        return this.webdriver.findElements(Object.assign({ sessionId: this.sessionId }, findStrategy_1.default(selector)))
+        return this.webdriver.findElements(Object.assign({ sessionId: this.sessionId }, helpers_1.findStrategy(selector)))
             .then(_elements);
     }
     $$(selector, from) {

@@ -1,4 +1,4 @@
-function parse(str) {
+export function cssParse(str) {
   return new CssParser(str).parse();
 }
 
@@ -108,8 +108,6 @@ class CssParser {
     return vals
   }
 }
-
-export default parse
 
 export interface CssParse {
   type: string

@@ -1,7 +1,8 @@
 "use strict";
-function parse(str) {
+function cssParse(str) {
     return new CssParser(str).parse();
 }
+exports.cssParse = cssParse;
 class CssParser {
     constructor(str) {
         this.str = str;
@@ -104,5 +105,3 @@ class CssParser {
         return vals;
     }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = parse;

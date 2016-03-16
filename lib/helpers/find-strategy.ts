@@ -1,6 +1,6 @@
 const DEFAULT_SELECTOR = 'css selector'
 
-function findStrategy(value: string, relative?: string): any {
+export function findStrategy(value: string, relative?: string): any {
   let xpathPrefix = relative ? './' : '//'
 
   /**
@@ -108,5 +108,3 @@ function findStrategy(value: string, relative?: string): any {
     value: value
   }
 }
-
-export default findStrategy

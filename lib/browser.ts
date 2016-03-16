@@ -1,7 +1,6 @@
 import Webdriver from 'webdriver-wire-protocol'
 import {Element} from './element'
-import checkUnicode from './helpers/checkUnicode'
-import findStrategy from './helpers/findStrategy'
+import {checkUnicode, findStrategy} from './helpers'
 import {addField, scroll} from './scripts'
 
 const KEYS = [

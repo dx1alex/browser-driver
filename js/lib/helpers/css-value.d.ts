@@ -1,5 +1,4 @@
-declare function parse(str: any): CssParse[];
-export default parse;
+export declare function cssParse(str: any): CssParse[];
 export interface CssParse {
     type: string;
     quote?: string;

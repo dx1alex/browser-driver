@@ -1,4 +1,4 @@
-function rgb2hex(color: string): HexColor {
+export function rgb2hex(color: string): HexColor {
   if (typeof color !== 'string') {
     throw new Error('color has to be type of `string`');
   }
@@ -34,8 +34,6 @@ function rgb2hex(color: string): HexColor {
     alpha: alpha
   }
 }
-
-export default rgb2hex
 
 export interface HexColor {
   hex: string

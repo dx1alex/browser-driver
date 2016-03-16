@@ -1,5 +1,5 @@
-import cssValue from './css-value'
-import rgb2hex from './rgb2hex'
+import {cssParse} from './css-value'
+import {rgb2hex} from './rgb2hex'
 
 import {css} from './sanitize'
 
@@ -27,7 +27,7 @@ let parse = function(cssPropertyValue, cssProperty) {
     parsedValue.parsed.type = 'color'
     parsedValue.parsed[/[rgba]+/g.exec(color)[0]] = color
   } else if (parsedValue.property === 'font-family') {
-    let font = cssValue(cssPropertyValue.value)
+    let font = cssParse(cssPropertyValue.value)
     let string = parsedValue.value
     let value = cssPropertyValue.value.split(/,/).map(css)
 
@@ -38,7 +38,7 @@ let parse = function(cssPropertyValue, cssProperty) {
      * parse other css properties
      */
     try {
-      parsedValue.parsed = cssValue(cssPropertyValue.value)
+      parsedValue.parsed = cssParse(cssPropertyValue.value)
 
       if (parsedValue.parsed.length === 1) {
         parsedValue.parsed = parsedValue.parsed[0]
@@ -56,7 +56,7 @@ let parse = function(cssPropertyValue, cssProperty) {
   return parsedValue
 }
 
-let parseCSS = function(response, cssProperty) {
+export function parseCSS(response, cssProperty) {
   let parsedCSS = []
 
   for (let res of response) {
@@ -71,5 +71,3 @@ let parseCSS = function(response, cssProperty) {
 
   return parsedCSS
 }
-
-export default parseCSS

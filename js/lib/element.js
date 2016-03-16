@@ -7,9 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments)).next());
     });
 };
-const checkUnicode_1 = require('./helpers/checkUnicode');
-const findStrategy_1 = require('./helpers/findStrategy');
-const parseCSS_1 = require('./helpers/parseCSS');
+const helpers_1 = require('./helpers');
 const scripts_1 = require('./scripts');
 class Element {
     constructor(selector, browser, from, id) {
@@ -40,7 +38,7 @@ class Element {
                 });
             }
             else {
-                this._promiseELEMENT = this.webdriver.findElement(Object.assign({ sessionId: this.sessionId }, findStrategy_1.default(from)))
+                this._promiseELEMENT = this.webdriver.findElement(Object.assign({ sessionId: this.sessionId }, helpers_1.findStrategy(from)))
                     .then(res => {
                     return res;
                 })
@@ -58,7 +56,7 @@ class Element {
         }
         function _findStrategy(selector) {
             self.selector = selector;
-            return self.query = findStrategy_1.default(selector);
+            return self.query = helpers_1.findStrategy(selector);
         }
     }
     get ELEMENT() {
@@ -86,7 +84,7 @@ class Element {
             const k = [].concat(keys);
             let value = [];
             for (let charSet of k) {
-                value = value.concat(checkUnicode_1.default(charSet));
+                value = value.concat(helpers_1.checkUnicode(charSet));
             }
             yield this.webdriver.typeElement({ sessionId: this.sessionId, id: yield this.ELEMENT, value: value });
             if (submit)
@@ -130,7 +128,7 @@ class Element {
     css(propertyName) {
         return __awaiter(this, void 0, void 0, function* () {
             return this.webdriver.getElementCssProperty({ sessionId: this.sessionId, id: yield this.ELEMENT, propertyName: propertyName })
-                .then(res => parseCSS_1.default([res], propertyName));
+                .then(res => helpers_1.parseCSS([res], propertyName));
         });
     }
     size() {

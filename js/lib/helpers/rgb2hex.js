@@ -29,5 +29,4 @@ function rgb2hex(color) {
         alpha: alpha
     };
 }
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = rgb2hex;
+exports.rgb2hex = rgb2hex;
