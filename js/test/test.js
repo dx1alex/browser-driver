@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 const index_1 = require('../index');
-const bro = new index_1.Browser({
+const bro = new index_1.Chrome({
     init: { url: 'http://localhost:9515' },
     desiredCapabilities: {
         browserName: 'chrome'

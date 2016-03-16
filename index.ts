@@ -1,2 +1,3 @@
 export * from './lib/browser'
-export {Chrome} from './lib/chrome'
+export * from './lib/chrome'
+export * from './lib/element'

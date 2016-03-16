@@ -1,6 +1,6 @@
-import {Browser} from '../index'
+import {Chrome} from '../index'
 
-const bro = new Browser({
+const bro = new Chrome({
   init: { url: 'http://localhost:9515' },
   desiredCapabilities: {
     browserName: 'chrome'
