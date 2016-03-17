@@ -1,9 +1,9 @@
 import {Browser} from './browser'
 import * as path from 'path'
 
-export class BrowserSync extends Browser {
+export class Chrome extends Browser {
   constructor(options) {
-    super(options)
+    super(updateOptions(options))
   }
   start(options?) {
     return super.start(updateOptions(this.options, options))

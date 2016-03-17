@@ -1,15 +1,15 @@
 "use strict";
 const browser_1 = require('./browser');
 const path = require('path');
-class BrowserSync extends browser_1.Browser {
+class Chrome extends browser_1.Browser {
     constructor(options) {
-        super(options);
+        super(updateOptions(options));
     }
     start(options) {
         return super.start(updateOptions(this.options, options));
     }
 }
-exports.BrowserSync = BrowserSync;
+exports.Chrome = Chrome;
 function updateOptions(options, opt) {
     options = clone(options);
     if (opt)
