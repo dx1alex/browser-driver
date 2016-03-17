@@ -1,7 +1,7 @@
 import {Browser} from './browser'
 import * as path from 'path'
 
-export class Chrome extends Browser {
+export class BrowserSync extends Browser {
   constructor(options) {
     super(options)
   }

@@ -49,8 +49,8 @@ class Browser {
                 throw new Error('Session is open');
             options = options || this.options;
             if (options.proxy)
-                options.desiredCapabilities.proxy = options.proxy;
-            const res = yield this.webdriver.initSession(options);
+                this.options.desiredCapabilities.proxy = options.proxy;
+            const res = yield this.webdriver.initSession(this.options);
             this.sessionId = res.sessionId;
             this.capabilities = res.value;
             yield this.setTimeouts(this.defaults.timeouts);

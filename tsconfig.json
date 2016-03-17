@@ -16,8 +16,10 @@
     ],
     "files": [
         "./index.ts",
+        "./lib/browser-sync.ts",
         "./lib/browser.ts",
         "./lib/chrome.ts",
+        "./lib/element-sync.ts",
         "./lib/element.ts",
         "./lib/helpers/check-unicode.ts",
         "./lib/helpers/css-value.ts",
@@ -26,6 +28,7 @@
         "./lib/helpers/parse-css.ts",
         "./lib/helpers/rgb2hex.ts",
         "./lib/helpers/sanitize.ts",
+        "./lib/helpers/sync-promise.ts",
         "./lib/scripts/addEventListener.ts",
         "./lib/scripts/addField.ts",
         "./lib/scripts/dispatchEvent.ts",
