@@ -18,6 +18,7 @@
         "./index.ts",
         "./lib/browser-sync.ts",
         "./lib/browser.ts",
+        "./lib/chrome-sync.ts",
         "./lib/chrome.ts",
         "./lib/element-sync.ts",
         "./lib/element.ts",
