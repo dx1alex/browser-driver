@@ -1,7 +1,7 @@
-import {BrowserSync} from '../index'
+import {ChromeSync} from '../index'
 import Sync from 'sync-plus'
 
-const bro = new BrowserSync({
+const bro = new ChromeSync({
   init: { url: 'http://localhost:9515' },
   desiredCapabilities: {
     browserName: 'chrome'

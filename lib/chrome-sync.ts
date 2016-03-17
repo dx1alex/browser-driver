@@ -3,10 +3,11 @@ import * as path from 'path'
 
 export class ChromeSync extends BrowserSync {
   constructor(options) {
-    super(updateOptions(options))
-  }
-  start(options?) {
-    return super.start(updateOptions(this.options, options))
+    super(options)
+    ChromeSync.prototype.start = (options?) => {
+      console.log('start')
+      return super.start(updateOptions(this.options, options))
+    }
   }
 }
 

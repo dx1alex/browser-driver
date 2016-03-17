@@ -1,7 +1,7 @@
 "use strict";
 const index_1 = require('../index');
 const sync_plus_1 = require('sync-plus');
-const bro = new index_1.BrowserSync({
+const bro = new index_1.ChromeSync({
     init: { url: 'http://localhost:9515' },
     desiredCapabilities: {
         browserName: 'chrome'
