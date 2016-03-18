@@ -4,9 +4,12 @@ import * as path from 'path'
 export class ChromeSync extends BrowserSync {
   constructor(options) {
     super(options)
-    ChromeSync.prototype.start = (options?) => {
-      return super.start(updateOptions(this.options, options))
-    }
+    // ChromeSync.prototype.start = (options?) => {
+    //   return super.start(updateOptions(this.options, options))
+    // }
+  }
+  start(options?) {
+    return super.start(updateOptions(this.options, options))
   }
 }
 

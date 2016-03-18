@@ -12,6 +12,7 @@ try {
   bro.start({ size: [1200, 800] })
   bro.url('http://google.com')
   console.log(bro.title())
+  console.log(bro.$('a').attr('href'))
   bro.$('input[name="q"]').keys(['xxx', 'Return'])
   Sync.sleep(1000)
   bro.$$('#search .g h3 > a').map(em => {

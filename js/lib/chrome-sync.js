@@ -4,9 +4,9 @@ const path = require('path');
 class ChromeSync extends browser_sync_1.BrowserSync {
     constructor(options) {
         super(options);
-        ChromeSync.prototype.start = (options) => {
-            return super.start(updateOptions(this.options, options));
-        };
+    }
+    start(options) {
+        return super.start(updateOptions(this.options, options));
     }
 }
 exports.ChromeSync = ChromeSync;
