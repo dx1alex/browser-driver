@@ -1,10 +1,10 @@
 "use strict";
 const element_1 = require('./element');
-const sync_promise_1 = require('./helpers/sync-promise');
+const sync_plus_1 = require('sync-plus');
 class ElementSync extends element_1.Element {
     constructor(selector, browser, from, id) {
         super(selector, browser, from, id);
-        Object.assign(ElementSync.prototype, sync_promise_1.syncPromise(this, this));
+        sync_plus_1.Sync.makePromise(this);
     }
 }
 exports.ElementSync = ElementSync;

@@ -1,5 +1,5 @@
 import {ChromeSync} from '../index'
-import Sync from 'sync-plus'
+import {Sync} from 'sync-plus'
 
 const bro = new ChromeSync({
   init: { url: 'http://localhost:9515' },

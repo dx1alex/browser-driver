@@ -12,7 +12,7 @@ try {
     bro.url('http://google.com');
     console.log(bro.title());
     bro.$('input[name="q"]').keys(['xxx', 'Return']);
-    sync_plus_1.default.sleep(1000);
+    sync_plus_1.Sync.sleep(1000);
     bro.$$('#search .g h3 > a').map(em => {
         console.log(em.attr('href'));
         if (em.isVisible())

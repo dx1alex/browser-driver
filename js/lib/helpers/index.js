@@ -8,4 +8,3 @@ __export(require('./css-value'));
 __export(require('./parse-css'));
 __export(require('./rgb2hex'));
 __export(require('./sanitize'));
-__export(require('./sync-promise'));

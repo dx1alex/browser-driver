@@ -1,6 +1,6 @@
 {
   "name": "browser-driver",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "browser-driver",
   "main": "js/index.js",
   "typings": "js/index",
@@ -11,13 +11,10 @@
     "type": "git",
     "url": "git+https://github.com/dx1alex/browser-driver.git"
   },
-  "keywords": [
-    "typescript",
-    "atom"
-  ],
   "author": "dx1alex",
   "license": "MIT",
   "dependencies": {
+    "sync-plus": "git+https://github.com/dx1alex/sync-plus.git",
     "webdriver-wire-protocol": "git+https://github.com/dx1alex/webdriver-wire-protocol.git"
   }
 }

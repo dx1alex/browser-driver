@@ -5,7 +5,6 @@ export class ChromeSync extends BrowserSync {
   constructor(options) {
     super(options)
     ChromeSync.prototype.start = (options?) => {
-      console.log('start')
       return super.start(updateOptions(this.options, options))
     }
   }

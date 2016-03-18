@@ -29,7 +29,6 @@
         "./lib/helpers/parse-css.ts",
         "./lib/helpers/rgb2hex.ts",
         "./lib/helpers/sanitize.ts",
-        "./lib/helpers/sync-promise.ts",
         "./lib/scripts/addEventListener.ts",
         "./lib/scripts/addField.ts",
         "./lib/scripts/dispatchEvent.ts",
