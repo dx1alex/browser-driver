@@ -14,34 +14,7 @@
         "!./node_modules/**/*.ts",
         "!./js/**"
     ],
-    "files": [
-        "./index.ts",
-        "./lib/browser-sync.ts",
-        "./lib/browser.ts",
-        "./lib/chrome-sync.ts",
-        "./lib/chrome.ts",
-        "./lib/element-sync.ts",
-        "./lib/element.ts",
-        "./lib/helpers/check-unicode.ts",
-        "./lib/helpers/css-value.ts",
-        "./lib/helpers/find-strategy.ts",
-        "./lib/helpers/index.ts",
-        "./lib/helpers/parse-css.ts",
-        "./lib/helpers/rgb2hex.ts",
-        "./lib/helpers/sanitize.ts",
-        "./lib/scripts/addEventListener.ts",
-        "./lib/scripts/addField.ts",
-        "./lib/scripts/dispatchEvent.ts",
-        "./lib/scripts/index.ts",
-        "./lib/scripts/scroll.ts",
-        "./lib/scripts/setAttribute.ts",
-        "./lib/scripts/setProperty.ts",
-        "./test/test.ts",
-        "./typings/node/node.d.ts",
-        "./typings/tsd.d.ts"
-    ],
     "atom": {
-        "rewriteTsconfig": true,
         "formatOnSave": true
     },
     "formatCodeOptions": {
