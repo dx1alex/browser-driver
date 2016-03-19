@@ -40,7 +40,13 @@ export class Browser {
   async start(options?: any): Promise<string> {
     if (this.sessionId !== null) throw new Error('Session is open')
     options = options || this.options
-    if (options.proxy) this.options.desiredCapabilities.proxy = options.proxy
+    if (options.proxy) {
+      this.options.desiredCapabilities.proxy = {
+        proxyType: 'manual',
+        httpProxy: options.proxy,
+        sslProxy: options.proxy,
+      }
+    }
     const res = await this.webdriver.initSession(this.options)
     this.sessionId = res.sessionId
     this.capabilities = res.value
