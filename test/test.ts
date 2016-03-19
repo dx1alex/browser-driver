@@ -1,25 +1,26 @@
-import {ChromeSync} from '../index'
-import {Sync} from 'sync-plus'
+import {Chrome} from '../index'
 
-const bro = new ChromeSync({
+const bro = new Chrome({
   init: { url: 'http://localhost:9515' },
   desiredCapabilities: {
     browserName: 'chrome'
   }
 })
 
-try {
-  bro.start({ size: [1200, 800] })
-  bro.url('http://google.com')
-  console.log(bro.title())
-  console.log(bro.$('a').attr('href'))
-  bro.$('input[name="q"]').keys(['xxx', 'Return'])
-  Sync.sleep(1000)
-  bro.$$('#search .g h3 > a').map(em => {
-    console.log(em.attr('href'))
-    if (em.isVisible()) em.click()
-  })
-}
-catch (e) {
-  console.log(e)
+main()
+async function main() {
+  try {
+    await bro.start({ size: [1200, 800] })
+    await bro.url('http://google.com')
+    console.log(await bro.title())
+    console.log(await bro.$('a').attr('href'))
+    await bro.$('input[name="q"]').keys(['xxx', 'Return'])
+    for (let em of await bro.$$('#search h3 > a')) {
+      console.log(await em.attr('href'))
+      if (await em.isVisible()) await em.click()
+    }
+  }
+  catch (e) {
+    console.log(e)
+  }
 }
