@@ -1,7 +1,7 @@
 import { Browser } from './browser';
 export declare class Element {
     browser: Browser;
-    id: Promise<string>;
+    id: string;
     query: Locator;
     selector: string;
     sessionId: string;

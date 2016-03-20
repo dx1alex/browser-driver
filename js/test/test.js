@@ -14,6 +14,7 @@ const bro = new index_1.Chrome({
         browserName: 'chrome'
     }
 });
+bro.pause = 1000;
 main();
 function main() {
     return __awaiter(this, void 0, void 0, function* () {

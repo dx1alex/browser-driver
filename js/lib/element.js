@@ -58,6 +58,20 @@ class Element {
             self.selector = selector;
             return self.query = helpers_1.findStrategy(selector);
         }
+        return new Proxy(this, {
+            get: (self, name) => {
+                if (typeof this[name] === 'function' && name != 'ELEMENT' && this.browser.pause > 0) {
+                    return (...args) => {
+                        return new Promise(resolve => {
+                            setTimeout(() => {
+                                resolve(this[name](...args));
+                            }, this.browser.pause);
+                        });
+                    };
+                }
+                return this[name];
+            }
+        });
     }
     get ELEMENT() {
         if (this.id !== null)

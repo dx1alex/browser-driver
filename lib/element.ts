@@ -4,10 +4,11 @@ import {checkUnicode, findStrategy, parseCSS} from './helpers'
 import {setAttribute, setProperty, dispatchEvent, addEventListener} from './scripts'
 
 export class Element {
-  id: Promise<string> = null
+  id: string = null
   query: Locator = null
   selector: string = null
   sessionId: string = null
+
   private _promiseELEMENT: Promise<any> = null
   private webdriver: Webdriver = null
 
@@ -54,6 +55,20 @@ export class Element {
       self.selector = selector
       return self.query = findStrategy(selector)
     }
+    return new Proxy(this, {
+      get: (self, name) => {
+        if (typeof this[name] === 'function' && name != 'ELEMENT' && this.browser.pause > 0) {
+          return (...args) => {
+            return new Promise(resolve => {
+              setTimeout(() => {
+                resolve(this[name](...args))
+              }, this.browser.pause)
+            })
+          }
+        }
+        return this[name]
+      }
+    })
   }
 
   get ELEMENT(): Promise<string> {
@@ -230,7 +245,6 @@ export class Element {
   }
 
   // TODO:
-  // hasText(){}
   // isVisibleInView(){}
 }
 

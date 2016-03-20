@@ -35,6 +35,7 @@ class Browser {
                 page_load: 30 * 1000
             }
         };
+        this.pause = 0;
         this.$_ = {};
         this.$$_ = [];
         this.webdriver = new webdriver_wire_protocol_1.default(this.options.init);

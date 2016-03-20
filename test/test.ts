@@ -6,6 +6,7 @@ const bro = new Chrome({
     browserName: 'chrome'
   }
 })
+bro.pause = 1000
 
 main()
 async function main() {
