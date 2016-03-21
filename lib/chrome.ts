@@ -13,7 +13,7 @@ export class Chrome extends Browser {
 function updateOptions(options: any, opt?: any) {
   options = clone(options)
   if (opt) options = Object.assign(options, opt)
-  if (options.dir) options.desiredCapabilities.chromeOptions.args.push('--user-data-dir=' + path.join(options.dir, options.user ? options.user + '' : 'Default'))
+  if (options.dir) options.desiredCapabilities.chromeOptions.args.push('--user-data-dir=' + path.join(options.dir, options.user ? options.user + '' : '0'))
   if (options.fullscreen) options.desiredCapabilities.chromeOptions.args.push('--start-fullscreen')
   if (options.useragent) options.desiredCapabilities.chromeOptions.args.push('--user-agent=' + options.useragent)
   if (options.disableFlash) options.desiredCapabilities.chromeOptions.args.push('--disable-bundled-ppapi-flash')

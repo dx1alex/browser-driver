@@ -15,7 +15,7 @@ function updateOptions(options, opt) {
     if (opt)
         options = Object.assign(options, opt);
     if (options.dir)
-        options.desiredCapabilities.chromeOptions.args.push('--user-data-dir=' + path.join(options.dir, options.user ? options.user + '' : 'Default'));
+        options.desiredCapabilities.chromeOptions.args.push('--user-data-dir=' + path.join(options.dir, options.user ? options.user + '' : '0'));
     if (options.fullscreen)
         options.desiredCapabilities.chromeOptions.args.push('--start-fullscreen');
     if (options.useragent)
