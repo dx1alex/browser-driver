@@ -7,7 +7,6 @@ class Chrome extends browser_1.Browser {
         this.options = updateOptions(this.options);
     }
     start(options) {
-        options.desiredCapabilities.chromeOptions.args = this.options.desiredCapabilities.chromeOptions.args;
         return super.start(updateOptions(Object.assign({}, this.options, options)));
     }
 }
