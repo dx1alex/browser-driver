@@ -30,9 +30,9 @@ class Browser {
         this.webdriver = null;
         this.defaults = {
             timeouts: {
-                script: 30 * 1000,
-                implicit: 500,
-                page_load: 30 * 1000
+                script: 60 * 1000,
+                implicit: 1000,
+                page_load: 60 * 1000
             }
         };
         this.pause = 0;
