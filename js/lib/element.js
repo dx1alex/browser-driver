@@ -78,9 +78,11 @@ class Element {
             return Promise.resolve(this.id);
         return this._promiseELEMENT.then(res => this.id = res.value.ELEMENT);
     }
-    click() {
+    click(wait) {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.webdriver.clickElement({ sessionId: this.sessionId, id: yield this.ELEMENT });
+            if (wait)
+                return this.browser.executeAsync(done => setTimeout(() => done(window.location.href), wait));
         });
     }
     clear() {

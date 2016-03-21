@@ -76,8 +76,9 @@ export class Element {
     return this._promiseELEMENT.then(res => this.id = res.value.ELEMENT)
   }
 
-  async click() {
+  async click(wait?: number) {
     await this.webdriver.clickElement({ sessionId: this.sessionId, id: await this.ELEMENT })
+    if (wait) return this.browser.executeAsync(done => setTimeout(() => done(window.location.href), wait))
   }
   async clear() {
     await this.webdriver.clearElement({ sessionId: this.sessionId, id: await this.ELEMENT })

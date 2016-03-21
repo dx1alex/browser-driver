@@ -9,7 +9,7 @@ export declare class Element {
     private webdriver;
     constructor(selector: any, browser: Browser, from?: string | Element, id?: string);
     readonly ELEMENT: Promise<string>;
-    click(): Promise<void>;
+    click(wait?: number): Promise<any>;
     clear(): Promise<void>;
     submit(): Promise<void>;
     keys(keys: string | string[], submit?: boolean): Promise<void>;
