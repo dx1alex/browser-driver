@@ -35,7 +35,7 @@ export class Browser {
     this.webdriver = new Webdriver(this.options.init)
     this.anticaptcha = this.options.init.anticaptcha
     this.gm = this.options.init.gm
-    for (let k of KEYS) this.key[k] = async (k) => this.keys(k.replace('_', ' '))
+    for (let k of KEYS) this.key[k] = async () => this.keys(k.replace('_', ' '))
   }
 
   async start(options?: any): Promise<string> {

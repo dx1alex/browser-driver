@@ -42,7 +42,7 @@ class Browser {
         this.anticaptcha = this.options.init.anticaptcha;
         this.gm = this.options.init.gm;
         for (let k of KEYS)
-            this.key[k] = (k) => __awaiter(this, void 0, void 0, function* () { return this.keys(k.replace('_', ' ')); });
+            this.key[k] = () => __awaiter(this, void 0, void 0, function* () { return this.keys(k.replace('_', ' ')); });
     }
     start(options) {
         return __awaiter(this, void 0, void 0, function* () {
