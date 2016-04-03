@@ -44,6 +44,9 @@ class Browser {
         for (let k of KEYS)
             this.key[k] = () => __awaiter(this, void 0, void 0, function* () { return this.keys(k.replace('_', ' ')); });
     }
+    sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
     start(options) {
         return __awaiter(this, void 0, void 0, function* () {
             if (this.sessionId !== null)
@@ -121,17 +124,17 @@ class Browser {
     }
     setScriptTimeout(ms) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.webdriver.setScriptTimeout({ sessionId: this.sessionId, ms: ms });
+            yield this.webdriver.setScriptTimeout({ sessionId: this.sessionId, ms });
         });
     }
     setImplicitWait(ms) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.webdriver.setImplicitWait({ sessionId: this.sessionId, ms: ms });
+            yield this.webdriver.setImplicitWait({ sessionId: this.sessionId, ms });
         });
     }
     setPageLoad(ms) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.webdriver.setTimeout({ sessionId: this.sessionId, type: 'page load', ms: ms });
+            yield this.webdriver.setTimeout({ sessionId: this.sessionId, type: 'page load', ms });
         });
     }
     getTab() {
@@ -144,7 +147,27 @@ class Browser {
     }
     switchTab(name) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.webdriver.switchToWindow({ sessionId: this.sessionId, name: name });
+            yield this.webdriver.switchToWindow({ sessionId: this.sessionId, name });
+        });
+    }
+    newTab(switchto) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.keys(['NULL', 'Control', 't', 'Control']);
+            const tabs = yield this.getTabs();
+            const tab = tabs[tabs.length - 1];
+            if (switchto)
+                yield this.switchTab(tab);
+            return tab;
+        });
+    }
+    newWindow(switchto) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.keys(['NULL', 'Control', 'n', 'Control']);
+            const tabs = yield this.getTabs();
+            const tab = tabs[tabs.length - 1];
+            if (switchto)
+                yield this.switchTab(tab);
+            return tab;
         });
     }
     setPosition(windowHandle, x, y) {
@@ -154,7 +177,7 @@ class Browser {
                 x = windowHandle;
                 windowHandle = 'current';
             }
-            yield this.webdriver.setWindowPosition({ sessionId: this.sessionId, windowHandle: windowHandle, x: x, y: y });
+            yield this.webdriver.setWindowPosition({ sessionId: this.sessionId, windowHandle, x, y });
         });
     }
     getPosition(windowHandle) {
@@ -168,7 +191,7 @@ class Browser {
                 width = windowHandle;
                 windowHandle = 'current';
             }
-            yield this.webdriver.setWindowSize({ sessionId: this.sessionId, windowHandle: windowHandle, width: width, height: height });
+            yield this.webdriver.setWindowSize({ sessionId: this.sessionId, windowHandle, width, height });
         });
     }
     getSize(windowHandle) {
@@ -204,14 +227,15 @@ class Browser {
                     yield this.switchTab(tab);
                 }
             }
-            else
+            else {
                 yield this.webdriver.closeWindow({ sessionId: this.sessionId });
+            }
         });
     }
     url(url) {
         return __awaiter(this, void 0, void 0, function* () {
             if (url) {
-                yield this.webdriver.openUrl({ sessionId: this.sessionId, url: url });
+                yield this.webdriver.openUrl({ sessionId: this.sessionId, url });
             }
             return this.webdriver.getUrl({ sessionId: this.sessionId })
                 .then(res => res.value);
@@ -219,7 +243,7 @@ class Browser {
     }
     get(url) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.webdriver.openUrl({ sessionId: this.sessionId, url: url });
+            yield this.webdriver.openUrl({ sessionId: this.sessionId, url });
         });
     }
     refresh() {
@@ -247,7 +271,7 @@ class Browser {
     }
     setCookie(cookie) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.webdriver.setCookie({ sessionId: this.sessionId, cookie: cookie });
+            yield this.webdriver.setCookie({ sessionId: this.sessionId, cookie });
         });
     }
     getCookies() {
@@ -256,7 +280,7 @@ class Browser {
     }
     deleteCookie(name) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.webdriver.deleteCookie({ sessionId: this.sessionId, name: name });
+            yield this.webdriver.deleteCookie({ sessionId: this.sessionId, name });
         });
     }
     deleteAllCookies() {
@@ -266,7 +290,7 @@ class Browser {
     }
     setPrompt(text) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.webdriver.setAlertPrompt({ sessionId: this.sessionId, text: text });
+            yield this.webdriver.setAlertPrompt({ sessionId: this.sessionId, text });
         });
     }
     getDialog() {
@@ -301,7 +325,7 @@ class Browser {
             if (id instanceof element_1.Element) {
                 id = yield id.ELEMENT;
             }
-            yield this.webdriver.switchToFrame({ sessionId: this.sessionId, id: id });
+            yield this.webdriver.switchToFrame({ sessionId: this.sessionId, id });
         });
     }
     switchParentFrame() {
@@ -316,7 +340,7 @@ class Browser {
             for (let charSet of k) {
                 value = value.concat(helpers_1.checkUnicode(charSet));
             }
-            yield this.webdriver.type({ sessionId: this.sessionId, value: value });
+            yield this.webdriver.type({ sessionId: this.sessionId, value });
         });
     }
     capture(path, crop, offset) {
@@ -383,12 +407,12 @@ class Browser {
     }
     execute(script, ...args) {
         script = typeof script === 'function' ? `return (${script}).apply(null, arguments)` : script;
-        return this.webdriver.executeScript({ sessionId: this.sessionId, script: script, args: args })
+        return this.webdriver.executeScript({ sessionId: this.sessionId, script, args })
             .then(res => res.value);
     }
     executeAsync(script, ...args) {
         script = typeof script === 'function' ? `return (${script}).apply(null, arguments)` : script;
-        return this.webdriver.executeAsyncScript({ sessionId: this.sessionId, script: script, args: args })
+        return this.webdriver.executeAsyncScript({ sessionId: this.sessionId, script, args })
             .then(res => res.value);
     }
     mouseDoubleClick() {
@@ -399,19 +423,19 @@ class Browser {
     mouseClick(button) {
         return __awaiter(this, void 0, void 0, function* () {
             button = button || 0;
-            yield this.webdriver.mouseClick({ sessionId: this.sessionId, button: button });
+            yield this.webdriver.mouseClick({ sessionId: this.sessionId, button });
         });
     }
     mouseUp(button) {
         return __awaiter(this, void 0, void 0, function* () {
             button = button || 0;
-            yield this.webdriver.mouseUp({ sessionId: this.sessionId, button: button });
+            yield this.webdriver.mouseUp({ sessionId: this.sessionId, button });
         });
     }
     mouseDown(button) {
         return __awaiter(this, void 0, void 0, function* () {
             button = button || 0;
-            yield this.webdriver.mouseDown({ sessionId: this.sessionId, button: button });
+            yield this.webdriver.mouseDown({ sessionId: this.sessionId, button });
         });
     }
     mouseMove(element, xoffset, yoffset) {
@@ -429,7 +453,7 @@ class Browser {
             else {
                 element = null;
             }
-            yield this.webdriver.mouseMoveTo({ sessionId: this.sessionId, element: element, xoffset: xoffset, yoffset: yoffset });
+            yield this.webdriver.mouseMoveTo({ sessionId: this.sessionId, element, xoffset, yoffset });
         });
     }
     click(selector, target, bg) {

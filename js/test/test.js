@@ -9,26 +9,42 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const index_1 = require('../index');
 const bro = new index_1.Chrome({
+    dir: '/tmp/test1',
+    prefs: {
+        profile: {
+            content_settings: {
+                exceptions: {
+                    images: {
+                        "https://vk.com:443,https://vk.com:443": {
+                            setting: 1
+                        }
+                    }
+                }
+            },
+            "default_content_setting_values": {
+                "images": 2
+            }
+        }
+    },
     init: { url: 'http://localhost:9515' },
     desiredCapabilities: {
         browserName: 'chrome'
     }
 });
-bro.pause = 1000;
 main();
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield bro.start({ size: [1200, 800] });
+            let res = yield bro.start({ size: [1200, 800] });
+            console.log(bro.capabilities);
             yield bro.url('http://google.com');
             console.log(yield bro.title());
             console.log(yield bro.$('a').attr('href'));
             yield bro.$('input[name="q"]').keys(['xxx', 'Return']);
-            for (let em of yield bro.$$('#search h3 > a')) {
-                console.log(yield em.attr('href'));
-                if (yield em.isVisible())
-                    yield em.click();
-            }
+            yield bro.newTab(true);
+            yield bro.url('http://ya.ru');
+            console.log(yield bro.newWindow(true));
+            yield bro.url('http://ya.ru');
         }
         catch (e) {
             console.log(e);

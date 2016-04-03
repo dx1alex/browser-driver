@@ -15,7 +15,6 @@ const KEYS = [
 export class Browser {
   gm = null
   anticaptcha = null
-
   key = {} as BrowserKeys
   sessionId: string = null
   capabilities: any = null
@@ -37,7 +36,9 @@ export class Browser {
     this.gm = this.options.init.gm
     for (let k of KEYS) this.key[k] = async () => this.keys(k.replace('_', ' '))
   }
-
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms))
+  }
   async start(options?: any): Promise<string> {
     if (this.sessionId !== null) throw new Error('Session is open')
     options = Object.assign({}, this.options, options)
@@ -118,6 +119,20 @@ export class Browser {
   async switchTab(name: string) {
     await this.webdriver.switchToWindow({ sessionId: this.sessionId, name })
   }
+  async newTab(switchto?: boolean) {
+    await this.keys(['NULL', 'Control', 't', 'Control'])
+    const tabs = await this.getTabs()
+    const tab = tabs[tabs.length - 1]
+    if (switchto) await this.switchTab(tab)
+    return tab
+  }
+  async newWindow(switchto?: boolean) {
+    await this.keys(['NULL', 'Control', 'n', 'Control'])
+    const tabs = await this.getTabs()
+    const tab = tabs[tabs.length - 1]
+    if (switchto) await this.switchTab(tab)
+    return tab
+  }
   async setPosition(windowHandle: any, x: number, y?: number) {
     if (typeof windowHandle === 'number') {
       y = x; x = windowHandle; windowHandle = 'current'
@@ -164,7 +179,11 @@ export class Browser {
         await this.switchTab(tab)
       }
     }
-    else await this.webdriver.closeWindow({ sessionId: this.sessionId })
+    else {
+      // let tabs = await this.getTabs()
+      // if(tabs.length > 1) {}
+      await this.webdriver.closeWindow({ sessionId: this.sessionId })
+    }
   }
   async url(url?: string): Promise<string> {
     if (url) {

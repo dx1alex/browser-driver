@@ -19,6 +19,7 @@ export declare class Browser {
     $_: Element;
     $$_: Element[];
     constructor(options: any);
+    sleep(ms: any): Promise<{}>;
     start(options?: any): Promise<string>;
     getStatus(): Promise<any>;
     quit(): Promise<void>;
@@ -30,6 +31,8 @@ export declare class Browser {
     getTab(): Promise<string>;
     getTabs(): Promise<string[]>;
     switchTab(name: string): Promise<void>;
+    newTab(switchto?: boolean): Promise<string>;
+    newWindow(switchto?: boolean): Promise<string>;
     setPosition(windowHandle: any, x: number, y?: number): Promise<void>;
     getPosition(windowHandle?: string): Promise<TabPosition>;
     setSize(windowHandle: any, width: number, height?: number): Promise<void>;

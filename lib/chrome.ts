@@ -1,5 +1,44 @@
 import {Browser} from './browser'
 import * as path from 'path'
+import deepAssign from './helpers/deep-assign'
+
+const defaultOptions = {
+  desiredCapabilities: {
+    chromeOptions: {
+      args: [
+        '--new-window',
+        '--disable-background-networking',
+        '--disable-client-side-phishing-detection',
+        '--disable-component-update',
+        '--disable-hang-monitor',
+        '--disable-prompt-on-repost',
+        '--disable-default-apps',
+        '--disable-translate',
+        '--disable-sync',
+        '--disable-web-resources',
+        '--disable-translate-new-ux',
+        '--disable-session-crashed-bubble',
+        '--disable-password-manager-reauthentication',
+        '--disable-save-password-bubble',
+        '--disable-plugins-discovery',
+        '--disable-plugins',
+        '--disable-gpu',
+        '--safe-plugins',
+        '--safebrowsing-disable-auto-update',
+        '--safebrowsing-disable-download-protection',
+        '--ignore-certificate-errors',
+        '--metrics-recording-only',
+        '--no-default-browser-check',
+        '--no-first-run',
+        '--no-managed-user-acknowledgment-check',
+        '--no-network-profile-warning',
+        '--no-pings',
+        '--noerrdialogs',
+        '--password-store=basic',
+      ]
+    }
+  }
+}
 
 export class Chrome extends Browser {
   constructor(options) {
@@ -9,12 +48,19 @@ export class Chrome extends Browser {
   start(options?) {
     return super.start(updateOptions(Object.assign({}, this.options, options)))
   }
+  userDataDir() {
+    return this.capabilities.crome.userDataDir
+  }
 }
 
 function updateOptions(options: any) {
+  if (!options.desiredCapabilities.chromeOptions) options.desiredCapabilities.chromeOptions = {}
+  if (!Array.isArray(options.desiredCapabilities.chromeOptions.args)) options.desiredCapabilities.chromeOptions.args = []
   const args = options.desiredCapabilities.chromeOptions.args
+  let userDir
   if (options.dir) {
-    setOpt(args, 'user-data-dir', path.join(options.dir, options.user ? options.user + '' : '0'))
+    userDir = path.join(options.dir, options.user ? options.user + '' : '0')
+    setOpt(args, 'user-data-dir', userDir)
   }
   if (typeof options.fullscreen === 'boolean') {
     setOpt(args, 'start-fullscreen', options.fullscreen)
@@ -24,6 +70,18 @@ function updateOptions(options: any) {
   }
   if (typeof options.disableFlash === 'boolean') {
     setOpt(args, 'disable-bundled-ppapi-flash', options.disableFlash)
+  }
+  if (options.prefs && userDir) {
+    const fs = require('fs')
+    const preferences = userDir + '/Default/Preferences'
+    try {
+      const prefs = fs.readFileSync(preferences, 'utf8')
+      let data = JSON.parse(prefs)
+      data = deepAssign(data, options.prefs)
+      fs.writeFileSync(preferences, JSON.stringify(data), 'utf8')
+    }
+    catch (e) {
+    }
   }
   return options
 }
