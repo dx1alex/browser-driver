@@ -60,12 +60,12 @@ class Element {
         }
         return new Proxy(this, {
             get: (self, name) => {
-                if (typeof this[name] === 'function' && name != 'ELEMENT' && this.browser.pause > 0) {
+                if (typeof this[name] === 'function' && name != 'ELEMENT' && this.browser.pause) {
                     return (...args) => {
                         return new Promise(resolve => {
                             setTimeout(() => {
                                 resolve(this[name](...args));
-                            }, this.browser.pause);
+                            }, Array.isArray(this.browser.pause) ? Math.random() * (this.browser.pause[1] - this.browser.pause[0]) + this.browser.pause[0] : this.browser.pause);
                         });
                     };
                 }
@@ -102,7 +102,7 @@ class Element {
             for (let charSet of k) {
                 value = value.concat(helpers_1.checkUnicode(charSet));
             }
-            yield this.webdriver.typeElement({ sessionId: this.sessionId, id: yield this.ELEMENT, value: value });
+            yield this.webdriver.typeElement({ sessionId: this.sessionId, id: yield this.ELEMENT, value });
             if (submit)
                 yield this.submit();
         });
@@ -137,13 +137,13 @@ class Element {
                 }, name, value)
                     .then(res => res.value);
             }
-            return this.webdriver.getElementAttribute({ sessionId: this.sessionId, id: yield this.ELEMENT, name: name })
+            return this.webdriver.getElementAttribute({ sessionId: this.sessionId, id: yield this.ELEMENT, name })
                 .then(res => res.value);
         });
     }
     css(propertyName) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.webdriver.getElementCssProperty({ sessionId: this.sessionId, id: yield this.ELEMENT, propertyName: propertyName })
+            return this.webdriver.getElementCssProperty({ sessionId: this.sessionId, id: yield this.ELEMENT, propertyName })
                 .then(res => helpers_1.parseCSS([res], propertyName));
         });
     }
@@ -197,7 +197,7 @@ class Element {
             if (em instanceof Element) {
                 other = yield em.ELEMENT;
             }
-            return this.webdriver.isElementEqual({ sessionId: this.sessionId, id: yield this.ELEMENT, other: other })
+            return this.webdriver.isElementEqual({ sessionId: this.sessionId, id: yield this.ELEMENT, other })
                 .then(res => res.value);
         });
     }

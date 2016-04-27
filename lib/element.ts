@@ -57,12 +57,12 @@ export class Element {
     }
     return new Proxy(this, {
       get: (self, name) => {
-        if (typeof this[name] === 'function' && name != 'ELEMENT' && this.browser.pause > 0) {
+        if (typeof this[name] === 'function' && name != 'ELEMENT' && this.browser.pause) {
           return (...args) => {
             return new Promise(resolve => {
               setTimeout(() => {
                 resolve(this[name](...args))
-              }, this.browser.pause)
+              }, Array.isArray(this.browser.pause) ? Math.random() * (this.browser.pause[1] - this.browser.pause[0]) + this.browser.pause[0] : this.browser.pause)
             })
           }
         }
@@ -247,6 +247,9 @@ export class Element {
 
   // TODO:
   // isVisibleInView(){}
+  // hasClass()
+  // execute()
+  // executeAsync()
 }
 
 // TODO:
