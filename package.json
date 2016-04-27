@@ -1,12 +1,9 @@
 {
   "name": "browser-driver",
-  "version": "0.5.6",
+  "version": "0.5.7",
   "description": "browser-driver",
   "main": "js/index.js",
   "typings": "js/index",
-  "scripts": {
-    "install": "tsd install"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dx1alex/browser-driver.git"
