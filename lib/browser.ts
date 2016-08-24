@@ -26,7 +26,7 @@ export class Browser {
       page_load: 60 * 1000
     }
   }
-  pause: number = 0
+  pause: any = 0
   $_: Element = <Element>{}
   $$_: Element[] = <Element[]>[]
 

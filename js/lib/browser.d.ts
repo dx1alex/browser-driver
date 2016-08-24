@@ -15,7 +15,7 @@ export declare class Browser {
             page_load: number;
         };
     };
-    pause: number;
+    pause: any;
     $_: Element;
     $$_: Element[];
     constructor(options: any);
