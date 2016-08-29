@@ -1,7 +1,7 @@
 import Webdriver from 'webdriver-wire-protocol'
-import {Element} from './element'
-import {checkUnicode, findStrategy} from './helpers'
-import {addField, scroll} from './scripts'
+import { Element } from './element'
+import { checkUnicode, findStrategy } from './helpers'
+import { addField, scroll } from './scripts'
 
 const KEYS = [
   "NULL", "Cancel", "Help", "Back_space", "Tab", "Clear", "Return", "Enter", "Shift", "Control", "Alt", "Meta",
@@ -180,9 +180,14 @@ export class Browser {
       }
     }
     else {
-      // let tabs = await this.getTabs()
-      // if(tabs.length > 1) {}
+      const tab = await this.getTab()
+      const tabs = await this.getTabs()
+      let newtab = null
+      if (tabs.length > 1) {
+        newtab = tabs[tabs.indexOf(tab) + (tabs[0] != tab ? -1 : 1)]
+      }
       await this.webdriver.closeWindow({ sessionId: this.sessionId })
+      if (newtab != null) await this.switchTab(newtab)
     }
   }
   async url(url?: string): Promise<string> {

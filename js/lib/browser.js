@@ -228,7 +228,15 @@ class Browser {
                 }
             }
             else {
+                const tab = yield this.getTab();
+                const tabs = yield this.getTabs();
+                let newtab = null;
+                if (tabs.length > 1) {
+                    newtab = tabs[tabs.indexOf(tab) + (tabs[0] != tab ? -1 : 1)];
+                }
                 yield this.webdriver.closeWindow({ sessionId: this.sessionId });
+                if (newtab != null)
+                    yield this.switchTab(newtab);
             }
         });
     }
