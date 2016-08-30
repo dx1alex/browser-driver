@@ -19,7 +19,7 @@ export declare class Browser {
     $_: Element;
     $$_: Element[];
     constructor(options: any);
-    sleep(ms: any): Promise<{}>;
+    sleep(ms: any, ms2?: any): Promise<{}>;
     start(options?: any): Promise<string>;
     getStatus(): Promise<any>;
     quit(): Promise<void>;

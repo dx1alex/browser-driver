@@ -36,8 +36,8 @@ export class Browser {
     this.gm = this.options.init.gm
     for (let k of KEYS) this.key[k] = async () => this.keys(k.replace('_', ' '))
   }
-  sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms))
+  sleep(ms, ms2?) {
+    return new Promise(resolve => setTimeout(resolve, ms2 ? ((Math.random() * (ms2 - ms)) | 0) + ms + 1 : ms))
   }
   async start(options?: any): Promise<string> {
     if (this.sessionId !== null) throw new Error('Session is open')
@@ -309,11 +309,10 @@ export class Browser {
     })
   }
   async captcha(selector: string | Element, crop: string | Element, options?) {
-    const em = this.element(selector)
     const img = require('os').tmpdir() + `/captcha_${Math.random().toString(16).substr(2)}.png`
     await this.capture(img, crop)
     const res = await this.anticaptcha.recognize(img, options)
-    await em.keys(res.code.trim())
+    await this.element(selector).keys(res.code.trim())
     return res
   }
   execute(script: string | Function, ...args) {

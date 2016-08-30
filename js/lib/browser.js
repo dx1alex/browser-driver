@@ -44,8 +44,8 @@ class Browser {
         for (let k of KEYS)
             this.key[k] = () => __awaiter(this, void 0, void 0, function* () { return this.keys(k.replace('_', ' ')); });
     }
-    sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
+    sleep(ms, ms2) {
+        return new Promise(resolve => setTimeout(resolve, ms2 ? ((Math.random() * (ms2 - ms)) | 0) + ms + 1 : ms));
     }
     start(options) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -405,11 +405,10 @@ class Browser {
     }
     captcha(selector, crop, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            const em = this.element(selector);
             const img = require('os').tmpdir() + `/captcha_${Math.random().toString(16).substr(2)}.png`;
             yield this.capture(img, crop);
             const res = yield this.anticaptcha.recognize(img, options);
-            yield em.keys(res.code.trim());
+            yield this.element(selector).keys(res.code.trim());
             return res;
         });
     }
