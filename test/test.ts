@@ -1,4 +1,4 @@
-import {Chrome} from '../index'
+import { Chrome } from '../index'
 
 const bro = new Chrome({
   dir: '/tmp/test1',
@@ -18,7 +18,7 @@ const bro = new Chrome({
       }
     }
   },
-  init: { url: 'http://localhost:9515' },
+  init: { url: 'http://localhost:9516' },
   desiredCapabilities: {
     browserName: 'chrome'
   }
@@ -31,17 +31,8 @@ async function main() {
   try {
     let res = await bro.start({ size: [1200, 800] })
     console.log(bro.capabilities)
-    await bro.url('http://google.com')
-    console.log(await bro.title())
-    console.log(await bro.$('a').attr('href'))
-    await bro.$('input[name="q"]').keys(['xxx', 'Return'])
-    // for (let em of await bro.$$('#search h3 > a')) {
-    //   console.log(await em.attr('href'))
-    //   if (await em.isVisible()) await em.click()
-    // }
-    await bro.newTab(true)
-    await bro.url('http://ya.ru')
-    console.log(await bro.newWindow(true))
+    await bro.url('https://habrahabr.ru/')
+    console.log(await bro.getImage('img', './test.png'))
     await bro.url('http://ya.ru')
   }
   catch (e) {

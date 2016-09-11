@@ -26,7 +26,7 @@ const bro = new index_1.Chrome({
             }
         }
     },
-    init: { url: 'http://localhost:9515' },
+    init: { url: 'http://localhost:9516' },
     desiredCapabilities: {
         browserName: 'chrome'
     }
@@ -37,13 +37,8 @@ function main() {
         try {
             let res = yield bro.start({ size: [1200, 800] });
             console.log(bro.capabilities);
-            yield bro.url('http://google.com');
-            console.log(yield bro.title());
-            console.log(yield bro.$('a').attr('href'));
-            yield bro.$('input[name="q"]').keys(['xxx', 'Return']);
-            yield bro.newTab(true);
-            yield bro.url('http://ya.ru');
-            console.log(yield bro.newWindow(true));
+            yield bro.url('https://habrahabr.ru/');
+            console.log(yield bro.getImage('img', './test.png'));
             yield bro.url('http://ya.ru');
         }
         catch (e) {

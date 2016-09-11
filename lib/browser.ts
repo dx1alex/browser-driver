@@ -312,7 +312,14 @@ export class Browser {
     const img = require('os').tmpdir() + `/captcha_${Math.random().toString(16).substr(2)}.png`
     await this.capture(img, crop)
     const res = await this.anticaptcha.recognize(img, options)
-    await this.element(selector).keys(res.code.trim())
+    await this.element(selector).type(res.code.trim())
+    return res
+  }
+  async captcha2(selector: string | Element, crop: string | Element, options?) {
+    const img = require('os').tmpdir() + `/captcha_${Math.random().toString(16).substr(2)}.png`
+    await this.getImage(crop, img)
+    const res = await this.anticaptcha.recognize(img, options)
+    await this.element(selector).type(res.code.trim())
     return res
   }
   execute(script: string | Function, ...args) {
@@ -462,9 +469,7 @@ export class Browser {
             await em.type(data[name])
           }
           else if (type === 'hidden') {
-            console.log('hidden')
             await em.attr('value', data[name])
-            console.log(await em.attr('value'))
           }
           else {
             await set(em, data[name])
@@ -485,6 +490,36 @@ export class Browser {
     if (submit) {
       return form.submit()
     }
+  }
+  async getImage(selector?: string | Element, to?: string) {
+    let src = await this.element(selector).attr('src')
+    await this.newTab(true)
+    await this.url(src)
+    let img = await this.executeAsync((done) => {
+      let img = document.querySelector('img')
+      if (img.complete) {
+        toDataUrl()
+      } else {
+        img.addEventListener('load', toDataUrl)
+      }
+      function toDataUrl(outputFormat?) {
+        let canvas = document.createElement('CANVAS')
+        let ctx = canvas.getContext('2d')
+        canvas.height = img.height
+        canvas.width = img.width
+        ctx.drawImage(img, 0, 0)
+        let dataURL = canvas.toDataURL(outputFormat)
+        done(dataURL)
+      }
+    })
+    await this.close()
+    if (to) {
+      let mt = img.match(/^data:image\/(\w+);base64,(.+)/)
+      let ext = mt[1]
+      let base64Data = mt[2]
+      require("fs").writeFile(to, base64Data, 'base64')
+    }
+    return img
   }
 
   element(selector?: string | Element, from?: string | Element): Element {

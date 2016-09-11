@@ -61,6 +61,7 @@ export declare class Browser {
     keys(keys: string | string[], ...more: string[]): Promise<void>;
     capture(path: string, crop?: any, offset?: any): Promise<any>;
     captcha(selector: string | Element, crop: string | Element, options?: any): Promise<any>;
+    captcha2(selector: string | Element, crop: string | Element, options?: any): Promise<any>;
     execute(script: string | Function, ...args: any[]): Promise<any>;
     executeAsync(script: string | Function, ...args: any[]): Promise<any>;
     mouseDoubleClick(): Promise<void>;
@@ -73,6 +74,7 @@ export declare class Browser {
     isExists(selector: string, from?: string | Element): Promise<boolean>;
     hasText(text: string | RegExp): Promise<boolean>;
     form(selector: string | Element, data: any, submit?: boolean, options?: FormOptions): Promise<void>;
+    getImage(selector?: string | Element, to?: string): Promise<any>;
     element(selector?: string | Element, from?: string | Element): Element;
     $(selector?: string | Element, from?: string | Element): Element;
     elements(selector: string, from?: string | Element): Promise<Element[]>;

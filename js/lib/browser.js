@@ -408,7 +408,16 @@ class Browser {
             const img = require('os').tmpdir() + `/captcha_${Math.random().toString(16).substr(2)}.png`;
             yield this.capture(img, crop);
             const res = yield this.anticaptcha.recognize(img, options);
-            yield this.element(selector).keys(res.code.trim());
+            yield this.element(selector).type(res.code.trim());
+            return res;
+        });
+    }
+    captcha2(selector, crop, options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const img = require('os').tmpdir() + `/captcha_${Math.random().toString(16).substr(2)}.png`;
+            yield this.getImage(crop, img);
+            const res = yield this.anticaptcha.recognize(img, options);
+            yield this.element(selector).type(res.code.trim());
             return res;
         });
     }
@@ -592,9 +601,7 @@ class Browser {
                             yield em.type(data[name]);
                         }
                         else if (type === 'hidden') {
-                            console.log('hidden');
                             yield em.attr('value', data[name]);
-                            console.log(yield em.attr('value'));
                         }
                         else {
                             yield set(em, data[name]);
@@ -615,6 +622,39 @@ class Browser {
             if (submit) {
                 return form.submit();
             }
+        });
+    }
+    getImage(selector, to) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let src = yield this.element(selector).attr('src');
+            yield this.newTab(true);
+            yield this.url(src);
+            let img = yield this.executeAsync((done) => {
+                let img = document.querySelector('img');
+                if (img.complete) {
+                    toDataUrl();
+                }
+                else {
+                    img.addEventListener('load', toDataUrl);
+                }
+                function toDataUrl(outputFormat) {
+                    let canvas = document.createElement('CANVAS');
+                    let ctx = canvas.getContext('2d');
+                    canvas.height = img.height;
+                    canvas.width = img.width;
+                    ctx.drawImage(img, 0, 0);
+                    let dataURL = canvas.toDataURL(outputFormat);
+                    done(dataURL);
+                }
+            });
+            yield this.close();
+            if (to) {
+                let mt = img.match(/^data:image\/(\w+);base64,(.+)/);
+                let ext = mt[1];
+                let base64Data = mt[2];
+                require("fs").writeFile(to, base64Data, 'base64');
+            }
+            return img;
         });
     }
     element(selector, from) {
