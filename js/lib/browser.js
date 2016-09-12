@@ -652,7 +652,13 @@ class Browser {
                 let mt = img.match(/^data:image\/(\w+);base64,(.+)/);
                 let ext = mt[1];
                 let base64Data = mt[2];
-                require("fs").writeFile(to, base64Data, 'base64');
+                yield new Promise((resolve, reject) => {
+                    require("fs").writeFile(to, base64Data, 'base64', (err) => {
+                        if (err)
+                            return reject(err);
+                        resolve();
+                    });
+                });
             }
             return img;
         });
