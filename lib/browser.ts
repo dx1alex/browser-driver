@@ -40,7 +40,7 @@ export class Browser {
     return new Promise(resolve => setTimeout(resolve, ms2 ? ((Math.random() * (ms2 - ms)) | 0) + ms + 1 : ms))
   }
   async start(options?: any): Promise<string> {
-    if (this.sessionId !== null) throw new Error('Session is open')
+    //if (this.sessionId !== null) throw new Error('Session is open')
     options = Object.assign({}, this.options, options)
     if (options.proxy) {
       options.desiredCapabilities.proxy = {
@@ -67,6 +67,14 @@ export class Browser {
   }
   getStatus() {
     return this.webdriver.getStatus()
+      .then(res => res.value)
+  }
+  getSession(sessionId: string) {
+    return this.webdriver.getSession({ sessionId })
+      .then(res => res.value)
+  }
+  getSessions() {
+    return this.webdriver.getSessions()
       .then(res => res.value)
   }
   async quit() {
@@ -312,6 +320,12 @@ export class Browser {
     const img = require('os').tmpdir() + `/captcha_${Math.random().toString(16).substr(2)}.png`
     await this.capture(img, crop)
     const res = await this.anticaptcha.recognize(img, options)
+    await new Promise((resolve, reject) => {
+      require('fs').unlink(img, (err) => {
+        if (err) return reject(err)
+        resolve()
+      })
+    })
     await this.element(selector).type(res.code.trim())
     return res
   }
@@ -522,7 +536,7 @@ export class Browser {
           if (err) return reject(err)
           resolve()
         })
-      }) 
+      })
     }
     return img
   }

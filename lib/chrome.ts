@@ -1,4 +1,4 @@
-import {Browser} from './browser'
+import { Browser } from './browser'
 import * as path from 'path'
 import deepAssign from './helpers/deep-assign'
 
@@ -45,8 +45,15 @@ export class Chrome extends Browser {
     super(options)
     this.options = updateOptions(this.options)
   }
-  start(options?) {
-    return super.start(updateOptions(Object.assign({}, this.options, options)))
+  async start(options?) {
+    let opt = updateOptions(Object.assign({}, this.options, options))
+    let sesssions = await this.webdriver.getSessions()
+    for (let v of sesssions.value) {
+      if (v.capabilities.chrome.userDataDir == options.dir + (options.user ? '/' + options.user : '')) {
+        await this.webdriver.quit({ sessionId: v.id })
+      }
+    }
+    return super.start(opt)
   }
   userDataDir() {
     return this.capabilities.crome.userDataDir

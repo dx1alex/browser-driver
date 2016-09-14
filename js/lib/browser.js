@@ -49,8 +49,6 @@ class Browser {
     }
     start(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (this.sessionId !== null)
-                throw new Error('Session is open');
             options = Object.assign({}, this.options, options);
             if (options.proxy) {
                 options.desiredCapabilities.proxy = {
@@ -80,6 +78,14 @@ class Browser {
     }
     getStatus() {
         return this.webdriver.getStatus()
+            .then(res => res.value);
+    }
+    getSession(sessionId) {
+        return this.webdriver.getSession({ sessionId })
+            .then(res => res.value);
+    }
+    getSessions() {
+        return this.webdriver.getSessions()
             .then(res => res.value);
     }
     quit() {
@@ -408,6 +414,13 @@ class Browser {
             const img = require('os').tmpdir() + `/captcha_${Math.random().toString(16).substr(2)}.png`;
             yield this.capture(img, crop);
             const res = yield this.anticaptcha.recognize(img, options);
+            yield new Promise((resolve, reject) => {
+                require('fs').unlink(img, (err) => {
+                    if (err)
+                        return reject(err);
+                    resolve();
+                });
+            });
             yield this.element(selector).type(res.code.trim());
             return res;
         });

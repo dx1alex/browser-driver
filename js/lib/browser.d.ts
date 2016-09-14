@@ -22,6 +22,8 @@ export declare class Browser {
     sleep(ms: any, ms2?: any): Promise<{}>;
     start(options?: any): Promise<string>;
     getStatus(): Promise<any>;
+    getSession(sessionId: string): Promise<any>;
+    getSessions(): Promise<any>;
     quit(): Promise<void>;
     setDefaultTimeouts(options: Timeouts): void;
     setTimeouts(options?: Timeouts | 'script' | 'implicit' | 'page load', ms?: number): Promise<void>;

@@ -1,4 +1,12 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator.throw(value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments)).next());
+    });
+};
 const browser_1 = require('./browser');
 const path = require('path');
 const deep_assign_1 = require('./helpers/deep-assign');
@@ -45,7 +53,17 @@ class Chrome extends browser_1.Browser {
         this.options = updateOptions(this.options);
     }
     start(options) {
-        return super.start(updateOptions(Object.assign({}, this.options, options)));
+        const _super = name => super[name];
+        return __awaiter(this, void 0, void 0, function* () {
+            let opt = updateOptions(Object.assign({}, this.options, options));
+            let sesssions = yield this.webdriver.getSessions();
+            for (let v of sesssions.value) {
+                if (v.capabilities.chrome.userDataDir == options.dir + (options.user ? '/' + options.user : '')) {
+                    yield this.webdriver.quit({ sessionId: v.id });
+                }
+            }
+            return _super("start").call(this, opt);
+        });
     }
     userDataDir() {
         return this.capabilities.crome.userDataDir;
