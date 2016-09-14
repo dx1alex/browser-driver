@@ -1,6 +1,6 @@
 {
   "name": "browser-driver",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "browser-driver",
   "main": "js/index.js",
   "typings": "js/index",

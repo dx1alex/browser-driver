@@ -57,6 +57,7 @@ class Browser {
                     sslProxy: options.proxy,
                 };
             }
+            this.options = options;
             const res = yield this.webdriver.initSession(options);
             this.sessionId = res.sessionId;
             this.capabilities = res.value;

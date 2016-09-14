@@ -49,6 +49,7 @@ export class Browser {
         sslProxy: options.proxy,
       }
     }
+    this.options = options
     const res = await this.webdriver.initSession(options)
     this.sessionId = res.sessionId
     this.capabilities = res.value
