@@ -58,7 +58,7 @@ class Chrome extends browser_1.Browser {
             let opt = updateOptions(Object.assign({}, this.options, options));
             let sesssions = yield this.webdriver.getSessions();
             for (let v of sesssions.value) {
-                if (v.capabilities.chrome.userDataDir == opt.dir + (opt.user ? '/' + opt.user : '')) {
+                if (v.capabilities.chrome.userDataDir == opt.dir + (opt.user ? require('path').sep + opt.user : '')) {
                     yield this.webdriver.quit({ sessionId: v.id });
                 }
             }

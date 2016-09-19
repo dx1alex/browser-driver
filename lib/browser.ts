@@ -64,6 +64,7 @@ export class Browser {
     if (options.url) {
       await this.url(options.url)
     }
+
     return this.sessionId
   }
   getStatus() {

@@ -49,7 +49,7 @@ export class Chrome extends Browser {
     let opt = updateOptions(Object.assign({}, this.options, options))
     let sesssions = await this.webdriver.getSessions()
     for (let v of sesssions.value) {
-      if (v.capabilities.chrome.userDataDir == opt.dir + (opt.user ? '/' + opt.user : '')) {
+      if (v.capabilities.chrome.userDataDir == opt.dir + (opt.user ? require('path').sep + opt.user : '')) {
         await this.webdriver.quit({ sessionId: v.id })
       }
     }
