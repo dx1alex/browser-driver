@@ -58,7 +58,7 @@ export class Chrome extends Browser {
   userDataDir() {
     return this.capabilities.chrome.userDataDir
   }
-  args(opt: string, value: string | boolean): any {
+  args(opt: string, value?: string | boolean): any {
     const args: Array<string> = this.options.desiredCapabilities.chromeOptions.args
     const i = args.findIndex(v => v.split('=')[0] == opt)
     if (value === undefined) {
