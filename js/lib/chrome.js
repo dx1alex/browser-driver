@@ -61,6 +61,14 @@ class Chrome extends browser_1.Browser {
                     yield this.webdriver.quit({ sessionId: v.id });
                 }
             }
+            if (opt.proxy) {
+                let auth = opt.proxy.split('@');
+                if (auth.length == 2) {
+                    let res = _super("start").call(this, opt);
+                    this.localStorage('chrome_proxy_auth', auth[0]);
+                    return res;
+                }
+            }
             return _super("start").call(this, opt);
         });
     }

@@ -144,6 +144,26 @@ class Browser {
             yield this.webdriver.setTimeout({ sessionId: this.sessionId, type: 'page load', ms });
         });
     }
+    localStorage(key, value) {
+        if (!key) {
+            return this.webdriver.getLocalStorageKeys({ sessionId: this.sessionId })
+                .then(res => res.value);
+        }
+        if (!value) {
+            return this.webdriver.getLocalStorageValue({ sessionId: this.sessionId, key })
+                .then(res => res.value);
+        }
+        return this.webdriver.setLocalStorage({ sessionId: this.sessionId, key, value })
+            .then(res => res.value);
+    }
+    deleteLocalStorage(key) {
+        if (!key) {
+            return this.webdriver.clearLocalStorage({ sessionId: this.sessionId })
+                .then(res => res.value);
+        }
+        return this.webdriver.deleteLocalStorageValue({ sessionId: this.sessionId, key })
+            .then(res => res.value);
+    }
     getTab() {
         return this.webdriver.getWindow({ sessionId: this.sessionId })
             .then(res => res.value);

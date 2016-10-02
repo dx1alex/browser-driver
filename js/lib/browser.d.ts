@@ -30,6 +30,8 @@ export declare class Browser {
     setScriptTimeout(ms: number): Promise<void>;
     setImplicitWait(ms: number): Promise<void>;
     setPageLoad(ms: number): Promise<void>;
+    localStorage(key?: string, value?: string): Promise<string>;
+    deleteLocalStorage(key?: string): Promise<string>;
     getTab(): Promise<string>;
     getTabs(): Promise<string[]>;
     switchTab(name: string): Promise<void>;

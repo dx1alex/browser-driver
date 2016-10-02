@@ -53,6 +53,14 @@ export class Chrome extends Browser {
         await this.webdriver.quit({ sessionId: v.id })
       }
     }
+    if (opt.proxy) {
+      let auth = opt.proxy.split('@')
+      if (auth.length == 2) {
+        let res = super.start(opt)
+        this.localStorage('chrome_proxy_auth', auth[0])
+        return res
+      }
+    }
     return super.start(opt)
   }
   userDataDir() {

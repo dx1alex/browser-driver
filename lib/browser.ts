@@ -118,6 +118,26 @@ export class Browser {
   async setPageLoad(ms: number) {
     await this.webdriver.setTimeout({ sessionId: this.sessionId, type: 'page load', ms })
   }
+  localStorage(key?: string, value?: string): Promise<string> {
+    if (!key) {
+      return this.webdriver.getLocalStorageKeys({ sessionId: this.sessionId })
+        .then(res => res.value)
+    }
+    if (!value) {
+      return this.webdriver.getLocalStorageValue({ sessionId: this.sessionId, key })
+        .then(res => res.value)
+    }
+    return this.webdriver.setLocalStorage({ sessionId: this.sessionId, key, value })
+      .then(res => res.value)
+  }
+  deleteLocalStorage(key?: string): Promise<string> {
+    if (!key) {
+      return this.webdriver.clearLocalStorage({ sessionId: this.sessionId })
+        .then(res => res.value)
+    }
+    return this.webdriver.deleteLocalStorageValue({ sessionId: this.sessionId, key })
+      .then(res => res.value)
+  }
   getTab(): Promise<string> {
     return this.webdriver.getWindow({ sessionId: this.sessionId })
       .then(res => res.value)
