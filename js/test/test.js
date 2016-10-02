@@ -10,23 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const index_1 = require('../index');
 const bro = new index_1.Chrome({
     dir: '/tmp/test1',
-    prefs: {
-        profile: {
-            content_settings: {
-                exceptions: {
-                    images: {
-                        "https://vk.com:443,https://vk.com:443": {
-                            setting: 1
-                        }
-                    }
-                }
-            },
-            "default_content_setting_values": {
-                "images": 2
-            }
-        }
-    },
-    init: { url: 'http://localhost:9516' },
+    init: { url: 'http://localhost:9515' },
     desiredCapabilities: {
         browserName: 'chrome'
     }
@@ -38,7 +22,6 @@ function main() {
             let res = yield bro.start({ size: [1200, 800] });
             console.log(bro.capabilities);
             yield bro.url('https://habrahabr.ru/');
-            console.log(yield bro.getImage('img', './test.png'));
             yield bro.url('http://ya.ru');
         }
         catch (e) {

@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const browser_1 = require('./browser');
 const path = require('path');
 const deep_assign_1 = require('./helpers/deep-assign');
+const proxy_auth_crx = `Q3IyNAIAAAAmAQAAAAEAADCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALEHkfZIbfxQCjck4h4GuAGT3dESy9aKPkJlZ71DmOqFQ/EpZTJdKiQnKWZ4YCkEsw3HHYf+8hkMluI/KQgmA1QHZdVElsDbQsfTD1zGQ04wRjY/AulL3GT+mi5jzcR29dA1gvnlHjql6Vy14G4ZSmhDMzkUNhNxsw/VR3BKmh1Efnx/ArDA8xG3dynOZrBY2wW+egdexgHDAULFkO5HG1sZwPLgAqrduxXrNj4nbvRSnTo1BILxf/4znMLkwyZ6n7jC67te4T5KUFxOE2cXTWX1VAcMVGm7CPJAyzsiavOoMHR6GmCt0hUUm3MeS4HAvruHdyI9ursI8WYRs5hgyoUCAwEAAU6QACYBgVpkWQrQAWy3YtXyBRZt5joFsv2uEzULo8Mj04i8NMTT0aMwoPjV3h4lVej9CInwyc4pjXGFBzZaw/1PfAREP4J35azALXVWiFf0NV4yTDGeTwiaP8E/uMgCPPKEPJFoA0nV051KAhGiH3FkDYi9HqOylBHhHFjT6bLTQLJrEii+GiJX7DuEsXL/CQFpMqYWfWV3d2nm5W3TocudOd+iPGcmzxhoQvBAfU04ZHPE3m+34ulHOPwFEmFYmkOHMIKv7dIdgL4M3pCdaVd24e6Iso1o2OYdWZRMiEQuJHkxrXsKL/e3QeMMwZzP41P3f14YRQLsi9Wu8acJkP1QSwMEFAAACAgAYblCSQWF5cKiAAAA+AAAAA0AAABtYW5pZmVzdC5qc29uXY5BDoIwFETX7SmavyZEXRpjogcwxK0hpECtldJiS1FDuLt8YEFczpvJzPSUEqi5UXfh26wTzitrgO3ZLhoNw2uBAhJnP192Cu0DkJfCF0417ZL9t1c1sI03E8t5UUlngykR95QQmDs86hvkMn56SCkZMN0IVyuPJbON8bfIL7xTkk+zEVvYVbzC+B1H1vqsbVEpI2d+4FpnwWl/BEpSOtAfUEsDBBQAAAgIANO6Qkm42/cFIQEAABACAAAFAAAAYmcuanNlUUFOwzAQPDevWOVQJ1LkB0SkEuoVIcSFQxQhN9m2K1w72GsKqvp3bKqUUObk3R3PeNYaGbTdkYEKRuX90bohy/q9sweUR9w8qg/aKSZrpDVrexg1Mg5SDcMDeUaDrhiQFWkPzQpO2YK2U0MGp6Vn5di/EO8LMShWdSXKMvEW7Y/tr2sHDcxvOhy16vF6rQIhSulHTVyIWpRRorfGW40yKhU3anF8zs7lPMozvgf0HHPcB96nitxNlG0wfco6RUgvhQjawjUV+SdnP7+gaRpgFxCWy8sGJ3KCQw7OzBoJKtquoyUaJqV9fTNOEMGjM+qAor6IVv8pU8RIuf7YnHDO/p7iHio4QdxptGzzO6X1aypWeQdx0uYbbfs3Mru8K7NvUEsBAgAAFAAACAgAYblCSQWF5cKiAAAA+AAAAA0AAAAAAAAAAQAAAAAAAAAAAG1hbmlmZXN0Lmpzb25QSwECAAAUAAAICADTukJJuNv3BSEBAAAQAgAABQAAAAAAAAABAAAAAADNAAAAYmcuanNQSwUGAAAAAAIAAgBuAAAAEQIAAAAA`;
 const defaultOptions = {
     desiredCapabilities: {
         chromeOptions: {
@@ -61,13 +62,14 @@ class Chrome extends browser_1.Browser {
                     yield this.webdriver.quit({ sessionId: v.id });
                 }
             }
+            console.log(__dirname);
             if (opt.proxy) {
                 let auth = opt.proxy.split('@');
                 if (auth.length == 2) {
                     opt.proxy = auth[1];
                     if (!Array.isArray(opt.desiredCapabilities.chromeOptions.extensions))
                         opt.desiredCapabilities.chromeOptions.extensions = [];
-                    opt.desiredCapabilities.chromeOptions.extensions.push(require('fs').readFileSync('../ext/proxy_auth.crx', 'base64'));
+                    opt.desiredCapabilities.chromeOptions.extensions.push(proxy_auth_crx);
                     let url = opt.url;
                     opt.url = 'data:,' + auth[0];
                     let res = yield _super("start").call(this, opt);
