@@ -73,8 +73,7 @@ class Chrome extends browser_1.Browser {
                     let url = opt.url;
                     opt.url = 'data:,' + auth[0];
                     let res = yield _super("start").call(this, opt);
-                    if (url)
-                        yield this.url(url);
+                    yield this.url(url || 'chrome://newtab');
                     return res;
                 }
             }

@@ -63,7 +63,7 @@ export class Chrome extends Browser {
         let url = opt.url
         opt.url = 'data:,' + auth[0]
         let res = await super.start(opt)
-        if (url) await this.url(url)
+        await this.url(url || 'chrome://newtab')
         return res
       }
     }
