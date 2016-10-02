@@ -57,8 +57,12 @@ export class Chrome extends Browser {
       let auth = opt.proxy.split('@')
       if (auth.length == 2) {
         opt.proxy = auth[1]
-        let res = super.start(opt)
-        this.localStorage('chrome_proxy_auth', auth[0])
+        if (!Array.isArray(opt.desiredCapabilities.chromeOptions.extensions)) opt.desiredCapabilities.chromeOptions.extensions = []
+        opt.desiredCapabilities.chromeOptions.extensions.push(require('fs').readFileSync('../ext/proxy_auth.crx', 'base64'))
+        let url = opt.url
+        opt.url = 'data:,' + auth[0]
+        let res = await super.start(opt)
+        if (url) await this.url(url)
         return res
       }
     }
