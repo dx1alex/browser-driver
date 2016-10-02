@@ -56,6 +56,7 @@ export class Chrome extends Browser {
     if (opt.proxy) {
       let auth = opt.proxy.split('@')
       if (auth.length == 2) {
+        opt.proxy = auth[1]
         let res = super.start(opt)
         this.localStorage('chrome_proxy_auth', auth[0])
         return res
