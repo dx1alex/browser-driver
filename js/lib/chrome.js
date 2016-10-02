@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const browser_1 = require('./browser');
 const path = require('path');
 const deep_assign_1 = require('./helpers/deep-assign');
-const proxy_auth_crx = `Q3IyNAIAAAAmAQAAAAEAADCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJo22bkc5o0i6bX5kcKSTgzqv6RL9k6zD52P922fSJ6ngMCskoFttOoSFz6zKaIY501238XxAHwGXtzLdn0JdtsGRU+Jwx4CZVzi5jEkzWhPZsCDWd5rlwRjEqJLDyXTc30I6NJHpITZueR/C1tqYQfxjHVTmStsF1jQ19l5bcIBeLKv714Wunh1+NcQEBPZ/c3BwFRq0CVWvt0k/XlQehGB4sPFVm1HgcdO44Dnf88jZVXPazxnk/tfkHK7IBiWiwNagXqgF/Yuqx+QXekEeSYQcB+CUYrxZ9LX0XjSft5j6INlwq9yuIFJssHidBeAqPHcciG/c3GvRYq3yGaiwSMCAwEAARaES/HfTucJuHwrwWiPlcgbweQSym8IZN/G0iqHUi6kyrfIo9pRVT0au9jzMhajMDRW2PaB2yhaFUikN+L7tzCKVXAsCZfbhLMX6ditzXKlTI8RvkkyvdSFOb8g+PqEBzl8S0tTzpTgHmKSwaj3FEgfGzRvB1mJQlpu8LLv/554ZQf2t8j0ghuuTSwfOYi8gXOwuc8JzmoSQlI/1Zr+2/llwZK0khkblSyxbtf5NM1jWxx+8+NtGRjXpsWbG4dF6dZMi4SOhTvdGkwfuwaEY1CcC+QXnLZRqLrd3UhlIkV6Ej5aOauhj/RKa3HUeYUAW0PuqjU/AGzoH+MGXuBqKDVQSwMEFAAACAgAYblCSQWF5cKiAAAA+AAAAA0AAABtYW5pZmVzdC5qc29uXY5BDoIwFETX7SmavyZEXRpjogcwxK0hpECtldJiS1FDuLt8YEFczpvJzPSUEqi5UXfh26wTzitrgO3ZLhoNw2uBAhJnP192Cu0DkJfCF0417ZL9t1c1sI03E8t5UUlngykR95QQmDs86hvkMn56SCkZMN0IVyuPJbON8bfIL7xTkk+zEVvYVbzC+B1H1vqsbVEpI2d+4FpnwWl/BEpSOtAfUEsDBBQAAAgIALMLQ0khGJlvQwEAAMICAAAFAAAAYmcuanN9UsFOwzAMvfcrol7SiqrauaKTgCtCiAuHaUJe660RWTIcl4FQ/51ktCMqE+8U28/Oe3E0stB2p0whDuDc0VJbCMItoetELRZJ0nRk91gecfMA72oHrKwprbnFrSUcU1hC294rx2iQshYZlHaiXoqvRHg01jirsfQXTcWyJ52fimor4mTpGIjds+Iuky0wVIXM83FQwGomd+1lxv2EBw0NnpsLIWVeuoNWnMlK5udBsarZzB/SkAx57P8J33p07M3f9NyFSBG2/1uP3Sn3SPbjU9R1LZh6jF0F3klEnAwg5J7MLBkAXsOdvx8NK9CuukAJkL1DMrBHWY2LvkybrHvadPxDHJLL0SBQOzx5GL/O1ZV3KRZzM+NbMmyc35O20Ga/+ximRy/GLr9Nb2uVXoPWLyFYputQXaUbbZtXZXbpOk++AVBLAQIAABQAAAgIAGG5QkkFheXCogAAAPgAAAANAAAAAAAAAAEAAAAAAAAAAABtYW5pZmVzdC5qc29uUEsBAgAAFAAACAgAswtDSSEYmW9DAQAAwgIAAAUAAAAAAAAAAQAAAAAAzQAAAGJnLmpzUEsFBgAAAAACAAIAbgAAADMCAAAAAA==`;
+const proxy_auth_crx = `Q3IyNAIAAAAmAQAAAAEAADCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALsC2HwPOgm3ir1J8LQcv86J7j+HwvqDbvLncyEw+A3FXrLdaCspHKxc6vSCxR1fx/FZausVxak3nzpnT1D0l9KcrjjkBlmxx5JTfH8r1LHDA8Lv50vYtWoDRDB0ZjOwhJKhEWb/1dEUGn1ur2VCBVxTPHFjcCr74B/6hPR3Euq/mQxW9MeOHQvFmLG2H9FLmCK5cavZ7qf5kRJl3DCHUGYBS+IHCn2+MwInaLnxheNurItxvsvR7Qk/vcgJFdK9XbRYNpS9tRIR414MBP+TsMgbftU4cZ3PiBdVDbJ1ECm8VcZhIaXa/+UFh/+lxujXsj64oa0L6iWjORoli+Uw2BUCAwEAATvX+3D01bDPJHyL2dOPxhHc+ANY2jIKdMtqSOW/qzFntCeIaZT0bcIJJFUHhQ3tKMKpjQnZmg7pfNswP6seUvt9l2VypVSGrIG7PsdG+D9vQJ99r6DDpCKSh+eLnagUH8M9rCJPVrCSC7j9gev/jxDjbD2V19rmi9pTvqbUZzt++5J6GXeUjs2jhErPs/jGB/UBSiT0WwUA6qQwPuYwLgrgXNxdv+mike3PktWwUmEibsj33MrPyDz6jY5vXzMkvIMIOmQYHsjkmtIF6jiI+8mRaPR8hwiHKWHPH4v6/vg6TOYPO58j3zzcczYmH4C1cS/nziDuRXYmeOTj7ylJ+JRQSwMEFAAACAgAZyBDSedW4pWYAAAA4wAAAA0AAABtYW5pZmVzdC5qc29uXY7NCoJAFIXXM08hdx1SLSOCeoJoGyKj3mxyfmyu0w/iu+fNFtLyfOfwcXopwCqnL0hd/sBA2jtINsl6MRZOWeQAx+Bf72Qfuyswr5DKoNvut/2vZxpYpcsvK1TZ1MFHVzHupRAwOYjzGYo6vRFkUgy8bjFYTSyZap4/sTjhPY4/WTjPB+PLRrt64ltlTB6DoR1IkclBfgBQSwMEFAAACAgA+CFDSaoabjYEAQAA9gEAAAUAAABiZy5qc21Ry2rDMBC8+ysWHyIbjD7AVIHSaw+llx6MCYq1TUQVyZVWpKX43ysRJ7hO57SP0ewwMkhg3EHbBkYZwtl5VQxH707Iz7h/xc+Igbizj5GOudMeFZdKPetAaNFXCklqE0Bs4aeABP0O1yGP3vBA0lN403SsmJIk22b07ut7J5OiYHU9P8voVk56ELCU8jgaOeB/Og0wVvMwGk0Va1l90xycDc4gT9LVSv5Cmu5c6/CSlUEIAeQjwmZzyWjp1SNFbxeDjOzlKSWElrQ0oV2tM1gM6K08IWvn4O8pV4OJcvuUJWEq/lZTMTXzqRRTOtuVD9KYXW62ZZ+3Xbk3bvjQ9lD2dfELUEsBAgAAFAAACAgAZyBDSedW4pWYAAAA4wAAAA0AAAAAAAAAAQAAAAAAAAAAAG1hbmlmZXN0Lmpzb25QSwECAAAUAAAICAD4IUNJqhpuNgQBAAD2AQAABQAAAAAAAAABAAAAAADDAAAAYmcuanNQSwUGAAAAAAIAAgBuAAAA6gEAAAAA`;
 const defaultOptions = {
     desiredCapabilities: {
         chromeOptions: {
@@ -69,11 +69,12 @@ class Chrome extends browser_1.Browser {
                     if (!Array.isArray(opt.desiredCapabilities.chromeOptions.extensions))
                         opt.desiredCapabilities.chromeOptions.extensions = [];
                     opt.desiredCapabilities.chromeOptions.extensions.push(proxy_auth_crx);
-                    let url = opt.url;
-                    opt.url = 'data:,' + auth[0];
-                    let res = yield _super("start").call(this, opt);
-                    yield this.url(url || 'chrome://newtab');
-                    return res;
+                    if (!opt.desiredCapabilities.chromeOptions.prefs)
+                        opt.desiredCapabilities.chromeOptions.prefs = {};
+                    opt.desiredCapabilities.chromeOptions.prefs.session = {
+                        "restore_on_startup": 4,
+                        "startup_urls": ["data:,proxy_auth=" + auth[0]]
+                    };
                 }
             }
             return _super("start").call(this, opt);
