@@ -4,3 +4,4 @@ export * from './setAttribute';
 export * from './setProperty';
 export * from './addEventListener';
 export * from './scroll';
+export * from './getImage';

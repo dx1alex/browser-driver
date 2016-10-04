@@ -10,7 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const browser_1 = require('./browser');
 const path = require('path');
 const deep_assign_1 = require('./helpers/deep-assign');
-const proxy_auth_crx = `Q3IyNAIAAAAmAQAAAAEAADCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANhwX5RHZKv+FfTfkmPnEWftzSJ+hYFaG39XUx2K+XIZEDvDlhBA5GjRV+oIeGS32l/7IVbNhHZuxzbHmiV00MFQ/qjXQiAoRa34w+TJ5v3P7qLZ3CVibmfGr8GrV8ChE4qlMvfyYtNOQJsY6wHcoBI7UtdT8NNM/5beKiEjZo+OekSFuOcukBV7Ubr4ID2umH7NQJgj7n0f6Wgdjg+5pSz3ildxqS7NNabqpciEaui+vG2dLQrCbRVaok16x8H5XuKJtWoQdQk7ZkD1UwiSc1pI+iiYdb8NC/eMxg+fqwcdyvP5pj5Yddp39PfsMFCt4V9jczW05rCEjKndbdR4U08CAwEAAc6php4t5Hc1qL16/SBXmNVyUeVXk0uf610AoN4acuW3SJSaRwlUO9AQxsC5CqlbyQu30DaNbib4aFPhQ9vS+R3HD5OPKJOiB5EHgn+9Ku3ZXVRckDo1jruTLxoRZ0Tp8EVXuum2I/nnKMgzqyv94/KDeCxcNlEhOPtKk0xug/O4Sv3Q9TEm+SrBmoOphB1x+VvU8gsANl9yLjSdCw1qjUFFXiNFeP6SkZLYQA21X8b+/9i1PvCGJ68ohuQtT2Hj5+zhrrX0wrVj6k0hsVgJbN4xUygmhuLvYauHEBDVB626go5pmkb8iBV2y7+twYQDhCTfWJcneDyjXuSoylXTrctQSwMEFAAACAgAZyBDSedW4pWYAAAA4wAAAA0AAABtYW5pZmVzdC5qc29uXY7NCoJAFIXXM08hdx1SLSOCeoJoGyKj3mxyfmyu0w/iu+fNFtLyfOfwcXopwCqnL0hd/sBA2jtINsl6MRZOWeQAx+Bf72Qfuyswr5DKoNvut/2vZxpYpcsvK1TZ1MFHVzHupRAwOYjzGYo6vRFkUgy8bjFYTSyZap4/sTjhPY4/WTjPB+PLRrt64ltlTB6DoR1IkclBfgBQSwMEFAAACAgAgihDSYGNq+QFAQAA+AEAAAUAAABiZy5qc21Ry2rDMBC8+ysWHyIbjHw3daD02kPppQdjgmJvY1FFcrVr0lL875WIE9ykc9rHaHYYGWQw7qBtAaMiOjnfJ93g3RHlCfev+DkhsXT2ceIhdtpjL1XfP2titOizHllpQ1Bv4SeBAP0Ol6GcvJHEyjO9aR4yMTCPVVmO3n1971SQLEWeL+8imhsrLdSw1vI4GtXhv0IFCJFLGo3mTFQiv4p2zpIzKIN2dqN/Js13vjW9RGWo6xrYTwibzTmltVmPPHm7GkREL08hI7SslaHqZh0hJkJv1RFFtUR/T7kYDJTrt6wJc/K3mpO5WE6FnMLZJn1Qxuxis03buG3SvXHdh7aHtM2TX1BLAQIAABQAAAgIAGcgQ0nnVuKVmAAAAOMAAAANAAAAAAAAAAEAAAAAAAAAAABtYW5pZmVzdC5qc29uUEsBAgAAFAAACAgAgihDSYGNq+QFAQAA+AEAAAUAAAAAAAAAAQAAAAAAwwAAAGJnLmpzUEsFBgAAAAACAAIAbgAAAOsBAAAAAA==`;
 const defaultOptions = {
     desiredCapabilities: {
         chromeOptions: {
@@ -60,21 +59,6 @@ class Chrome extends browser_1.Browser {
             for (let v of sesssions.value) {
                 if (v.capabilities.chrome.userDataDir.toLowerCase() == (opt.dir + (opt.user ? require('path').sep + opt.user : '')).toLowerCase()) {
                     yield this.webdriver.quit({ sessionId: v.id });
-                }
-            }
-            if (opt.proxy) {
-                let auth = opt.proxy.split('@');
-                if (auth.length == 2) {
-                    opt.proxy = auth[1];
-                    if (!Array.isArray(opt.desiredCapabilities.chromeOptions.extensions))
-                        opt.desiredCapabilities.chromeOptions.extensions = [];
-                    opt.desiredCapabilities.chromeOptions.extensions.push(proxy_auth_crx);
-                    if (!opt.desiredCapabilities.chromeOptions.prefs)
-                        opt.desiredCapabilities.chromeOptions.prefs = {};
-                    opt.desiredCapabilities.chromeOptions.prefs.session = {
-                        "restore_on_startup": 4,
-                        "startup_urls": ["http://proxy_auth/" + auth[0]]
-                    };
                 }
             }
             return _super("start").call(this, opt);

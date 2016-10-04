@@ -1,7 +1,7 @@
 import Webdriver from 'webdriver-wire-protocol'
 import { Element } from './element'
 import { checkUnicode, findStrategy } from './helpers'
-import { addField, scroll } from './scripts'
+import { addField, scroll, getImage } from './scripts'
 
 const KEYS = [
   "NULL", "Cancel", "Help", "Back_space", "Tab", "Clear", "Return", "Enter", "Shift", "Control", "Alt", "Meta",
@@ -149,18 +149,28 @@ export class Browser {
   async switchTab(name: string) {
     await this.webdriver.switchToWindow({ sessionId: this.sessionId, name })
   }
-  async newTab(switchto?: boolean) {
+  async newTab(url?: boolean | string) {
     await this.keys(['NULL', 'Control', 't', 'Control'])
     const tabs = await this.getTabs()
     const tab = tabs[tabs.length - 1]
-    if (switchto) await this.switchTab(tab)
+    if (url) {
+      await this.switchTab(tab)
+      if (typeof url === 'string') {
+        await this.url(url)
+      }
+    }
     return tab
   }
-  async newWindow(switchto?: boolean) {
+  async newWindow(url?: boolean | string) {
     await this.keys(['NULL', 'Control', 'n', 'Control'])
     const tabs = await this.getTabs()
     const tab = tabs[tabs.length - 1]
-    if (switchto) await this.switchTab(tab)
+    if (url) {
+      await this.switchTab(tab)
+      if (typeof url === 'string') {
+        await this.url(url)
+      }
+    }
     return tab
   }
   async setPosition(windowHandle: any, x: number, y?: number) {
@@ -383,7 +393,7 @@ export class Browser {
     button = button || 0
     await this.webdriver.mouseDown({ sessionId: this.sessionId, button })
   }
-  async mouseMove(element: any, xoffset: number, yoffset?: number) {
+  async mouseMove(element: any, xoffset?: number, yoffset?: number) {
     xoffset = xoffset || 0
     yoffset = yoffset || 0
     if (typeof element === 'number') {
@@ -528,27 +538,7 @@ export class Browser {
     }
   }
   async getImage(selector?: string | Element, to?: string) {
-    let src = await this.element(selector).attr('src')
-    await this.newTab(true)
-    await this.url(src)
-    let img = await this.executeAsync((done) => {
-      let img = document.querySelector('img')
-      if (img.complete) {
-        toDataUrl()
-      } else {
-        img.addEventListener('load', toDataUrl)
-      }
-      function toDataUrl(outputFormat?) {
-        let canvas = document.createElement('CANVAS')
-        let ctx = canvas.getContext('2d')
-        canvas.height = img.height
-        canvas.width = img.width
-        ctx.drawImage(img, 0, 0)
-        let dataURL = canvas.toDataURL(outputFormat)
-        done(dataURL)
-      }
-    })
-    await this.close()
+    let img = await this.executeAsync(getImage, selector)
     if (to) {
       let mt = img.match(/^data:image\/(\w+);base64,(.+)/)
       let ext = mt[1]

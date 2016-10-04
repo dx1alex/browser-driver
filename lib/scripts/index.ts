@@ -4,6 +4,7 @@ export * from './setAttribute'
 export * from './setProperty'
 export * from './addEventListener'
 export * from './scroll'
+export * from './getImage'
 
 function getElement(using, value): any {
   if (!using || !value) return

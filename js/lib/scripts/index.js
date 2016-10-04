@@ -8,6 +8,7 @@ __export(require('./setAttribute'));
 __export(require('./setProperty'));
 __export(require('./addEventListener'));
 __export(require('./scroll'));
+__export(require('./getImage'));
 function getElement(using, value) {
     if (!using || !value)
         return;

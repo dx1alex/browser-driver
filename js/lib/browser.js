@@ -177,23 +177,31 @@ class Browser {
             yield this.webdriver.switchToWindow({ sessionId: this.sessionId, name });
         });
     }
-    newTab(switchto) {
+    newTab(url) {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.keys(['NULL', 'Control', 't', 'Control']);
             const tabs = yield this.getTabs();
             const tab = tabs[tabs.length - 1];
-            if (switchto)
+            if (url) {
                 yield this.switchTab(tab);
+                if (typeof url === 'string') {
+                    yield this.url(url);
+                }
+            }
             return tab;
         });
     }
-    newWindow(switchto) {
+    newWindow(url) {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.keys(['NULL', 'Control', 'n', 'Control']);
             const tabs = yield this.getTabs();
             const tab = tabs[tabs.length - 1];
-            if (switchto)
+            if (url) {
                 yield this.switchTab(tab);
+                if (typeof url === 'string') {
+                    yield this.url(url);
+                }
+            }
             return tab;
         });
     }
@@ -660,28 +668,7 @@ class Browser {
     }
     getImage(selector, to) {
         return __awaiter(this, void 0, void 0, function* () {
-            let src = yield this.element(selector).attr('src');
-            yield this.newTab(true);
-            yield this.url(src);
-            let img = yield this.executeAsync((done) => {
-                let img = document.querySelector('img');
-                if (img.complete) {
-                    toDataUrl();
-                }
-                else {
-                    img.addEventListener('load', toDataUrl);
-                }
-                function toDataUrl(outputFormat) {
-                    let canvas = document.createElement('CANVAS');
-                    let ctx = canvas.getContext('2d');
-                    canvas.height = img.height;
-                    canvas.width = img.width;
-                    ctx.drawImage(img, 0, 0);
-                    let dataURL = canvas.toDataURL(outputFormat);
-                    done(dataURL);
-                }
-            });
-            yield this.close();
+            let img = yield this.executeAsync(scripts_1.getImage, selector);
             if (to) {
                 let mt = img.match(/^data:image\/(\w+);base64,(.+)/);
                 let ext = mt[1];

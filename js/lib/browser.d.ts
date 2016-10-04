@@ -35,8 +35,8 @@ export declare class Browser {
     getTab(): Promise<string>;
     getTabs(): Promise<string[]>;
     switchTab(name: string): Promise<void>;
-    newTab(switchto?: boolean): Promise<string>;
-    newWindow(switchto?: boolean): Promise<string>;
+    newTab(url?: boolean | string): Promise<string>;
+    newWindow(url?: boolean | string): Promise<string>;
     setPosition(windowHandle: any, x: number, y?: number): Promise<void>;
     getPosition(windowHandle?: string): Promise<TabPosition>;
     setSize(windowHandle: any, width: number, height?: number): Promise<void>;
@@ -72,7 +72,7 @@ export declare class Browser {
     mouseClick(button?: number): Promise<void>;
     mouseUp(button?: number): Promise<void>;
     mouseDown(button?: number): Promise<void>;
-    mouseMove(element: any, xoffset: number, yoffset?: number): Promise<void>;
+    mouseMove(element: any, xoffset?: number, yoffset?: number): Promise<void>;
     click(selector: string | Element, target?: string, bg?: boolean): Promise<void>;
     scroll(selector: string | Element, align?: any, y?: number, x?: number): Promise<any>;
     isExists(selector: string, from?: string | Element): Promise<boolean>;
