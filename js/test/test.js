@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const index_1 = require('../index');
 const bro = new index_1.Chrome({
-    dir: '/tmp/test1',
+    dir: '/tmp/test2',
     init: { url: 'http://localhost:9515' },
     desiredCapabilities: {
         browserName: 'chrome'
@@ -20,8 +20,6 @@ function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             let res = yield bro.start({ size: [1200, 800] });
-            console.log(bro.capabilities);
-            yield bro.url('https://habrahabr.ru/');
             yield bro.url('http://ya.ru');
         }
         catch (e) {
