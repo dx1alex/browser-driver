@@ -2,6 +2,8 @@ import { Browser } from './browser'
 import * as path from 'path'
 import deepAssign from './helpers/deep-assign'
 
+const proxy_ext = 'Q3IyNAIAAAAmAQAAAAEAADCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAN4DrlCG2Oaj17uLRRDWYEkC1fZ/yYMrxBUtANvT9jr5+Ldvz1bj0y5hCYgLXR+zrBOqhnjaJEoWKvc8w2fxA1RRUjUnWbevjDnL4kW4OcT6AYNarTKaT9Zvc4pZvjTytc0/nVCuZDVHBvVjpWgEroz7PcUXo1RR74Y+6FWYri2DLu27IZ6xxQGB4W3h1QBViPNJYklXe7QTX3FFzF2b2m/a4iPnOU00YvFYgJ7Kn4wqQIYQ4PUtDii3m16M4tjCcN9yQ4Y5uFuFCDmfmtPKC7d2xjBL0vlPh9zSJRqb3FUpeEaXnL08kLZgzSlDv66iPuSGbRehdXNiZqJtOOR8PssCAwEAAU2aIWwCvZYuhWeNYdaMh9Nxn+7kqatCp01SsQ3sEDBQ8b6qpa0DNaNpOfW0czSdnD0mgdHjxIXwnPYwlSxSfZaRS8/BZTADbyWS6N3xMMahS8XzK//fPi0RjaUPffTcoXRURbdNrgbcgS7uNzIhGwamyHhSp9+5gjXzHbdk3A4IKuZnnmY1bDHTjPq2wJuExsZpTp+pxsrUZN1SoYBewkYP4BDqeTku72LCF9wQkq8gY7bPiv4IA+pFOtDfpxEEILlncAcMS0ZxN8PzzH+ZBOxQOshHkwKUnF8HPrcrc7gWVMvk62NgrG7Wl3bakag0hIBDoS3/lCe+cN9QVix7GhhQSwMEFAAACAgAt5JJSRO/PgqmAAAAKAEAAA0AAABtYW5pZmVzdC5qc29ubY/BDoIwDIbP7ilIz4SoR2M8+ADGcDWEDJjLZGy4AmoI724dGDCxt35f+6ftWUAFFTfqKrBJO+FQWQO7YBuOyvBKUAtnZ58vmGAhMHeqbsbRXzdHwCZaf2nG81I625qCRO+Z52MOErxAJqMbQuLlMO3VwlUKP4F+hq2o4CGyE++U5P6AcE4jEYt7S5/8p0dt81IZubT14ngP9lzrtHUaD+Bhwgb2BlBLAwQUAAAICABxmUlJULoXyvABAABOBQAABQAAAGJnLmpzlVNNj5wwDL3zK1IugXbEtFfU2X5de1j1OhqtsuAZohpCk7C71Yr/XifAkAH20BwgiZ/tZ/sFwTLR2WrHWq1e/kZRUWlVQ/YMj7/gTwfGZqr5DmelYTqLsvwpjYUGdFKCFRINO9yx14jRKlRjFEKG6pLwhSffsRGfdRrTyDsgEWiFFjU7hNZMQ4uigIRX1rb5fu/p7b9QDM5HV3lmyeh6YLxAEJqnI48Vl9E8G4c6fdjMgLWyuZjMo5LXfsZpsJ1ugqjeWTQFYM6s7uBq6KPhG5RFNXmCmWlR2oR/vaWeITQXWzn6n0LinpT3PX48DVEZoIEAcgyGdvLQZfZjpYwlhNLWA4ZCBx75xGO7C7RJ5lRPAjvIFx2oVUl38Vm+QPlgQD+BNvHuBqI7BLP0c8tQEoR7l3PL7CFFBbVL4Ka/iDstX9+mxdWcsw/ut7L30fapn0OZQrWUm2u4dEiiGTo7dmylh5UW+qjfjXYSMnXgGN9q+H18cpBj/Iiq+E3NiE/p9sP7RkN2J6mh/K93FzpuPjsnwOlWmvtBcKRDV0UoRYd757SWjpVHV5MXGeWTDalMGPOsdOmU5tCh0K6NCigu3NI56uZ7cyF/UCnQWClwU1S8IxU2ogaesyH6GjKlI8i0fUsNb03ys0B8cIe7rSH+A1BLAQIAABQAAAgIALeSSUkTvz4KpgAAACgBAAANAAAAAAAAAAEAAAAAAAAAAABtYW5pZmVzdC5qc29uUEsBAgAAFAAACAgAcZlJSVC6F8rwAQAATgUAAAUAAAAAAAAAAQAAAAAA0QAAAGJnLmpzUEsFBgAAAAACAAIAbgAAAOQCAAAAAA=='
+
 const defaultOptions = {
   desiredCapabilities: {
     chromeOptions: {
@@ -49,15 +51,19 @@ export class Chrome extends Browser {
     let opt = updateOptions(Object.assign({}, this.options, options))
     let sesssions = await this.webdriver.getSessions()
     for (let v of sesssions.value) {
-      if (v.capabilities.chrome.userDataDir.toLowerCase() == (opt.dir + (opt.user ? require('path').sep + opt.user : '')).toLowerCase()) {
+      if (v.capabilities.chrome.userDataDir == (opt.dir + (opt.user ? require('path').sep + opt.user : '')).toLowerCase()) {
         await this.webdriver.quit({ sessionId: v.id })
       }
     }
-
+    opt.desiredCapabilities.chromeOptions.extensions = [proxy_ext]
     return super.start(opt)
   }
   userDataDir() {
     return this.capabilities.chrome.userDataDir
+  }
+  setProxy(proxy) {
+    if (!proxy) proxy = 'clear'
+    return this.url('http://proxy/?' + proxy)
   }
   args(opt: string, value?: string | boolean): any {
     const args: Array<string> = this.options.desiredCapabilities.chromeOptions.args
