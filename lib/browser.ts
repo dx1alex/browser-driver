@@ -34,7 +34,13 @@ export class Browser {
     this.webdriver = new Webdriver(this.options.init)
     this.anticaptcha = this.options.init.anticaptcha
     this.gm = this.options.init.gm
-    for (let k of KEYS) this.key[k] = async () => this.keys(k.replace('_', ' '))
+    for (let k of KEYS) this.key[k] = async (key?) => {
+      if (key && ["Shift", "Control", "Alt", "Meta"].includes(key)) {
+        let kk = k.replace('_', ' ')
+        return this.keys(['NULL', kk, key, kk])
+      }
+      return this.keys(k.replace('_', ' '))
+    }
   }
   sleep(ms, ms2?) {
     return new Promise(resolve => setTimeout(resolve, ms2 ? ((Math.random() * (ms2 - ms)) | 0) + ms + 1 : ms))
@@ -230,9 +236,10 @@ export class Browser {
       if (newtab != null) await this.switchTab(newtab)
     }
   }
-  async url(url?: string): Promise<string> {
+  async url(url?: string, sleepMS?: number): Promise<string> {
     if (url) {
       await this.webdriver.openUrl({ sessionId: this.sessionId, url })
+      if (sleepMS) await this.sleep(sleepMS)
     }
     return this.webdriver.getUrl({ sessionId: this.sessionId })
       .then(res => res.value)

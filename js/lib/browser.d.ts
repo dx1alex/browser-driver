@@ -44,7 +44,7 @@ export declare class Browser {
     getViewSize(): Promise<TabSize>;
     maximize(windowHandle?: string): Promise<void>;
     close(name?: string): Promise<void>;
-    url(url?: string): Promise<string>;
+    url(url?: string, sleepMS?: number): Promise<string>;
     get(url: string): Promise<void>;
     refresh(): Promise<void>;
     back(): Promise<void>;

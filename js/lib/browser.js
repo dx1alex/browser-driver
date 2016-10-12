@@ -7,10 +7,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments)).next());
     });
 };
-const webdriver_wire_protocol_1 = require('webdriver-wire-protocol');
-const element_1 = require('./element');
-const helpers_1 = require('./helpers');
-const scripts_1 = require('./scripts');
+const webdriver_wire_protocol_1 = require("webdriver-wire-protocol");
+const element_1 = require("./element");
+const helpers_1 = require("./helpers");
+const scripts_1 = require("./scripts");
 const KEYS = [
     "NULL", "Cancel", "Help", "Back_space", "Tab", "Clear", "Return", "Enter", "Shift", "Control", "Alt", "Meta",
     "Pause", "Escape", "Semicolon", "Equals", "Insert", "Delete", "Space",
@@ -42,7 +42,13 @@ class Browser {
         this.anticaptcha = this.options.init.anticaptcha;
         this.gm = this.options.init.gm;
         for (let k of KEYS)
-            this.key[k] = () => __awaiter(this, void 0, void 0, function* () { return this.keys(k.replace('_', ' ')); });
+            this.key[k] = (key) => __awaiter(this, void 0, void 0, function* () {
+                if (key && ["Shift", "Control", "Alt", "Meta"].includes(key)) {
+                    let kk = k.replace('_', ' ');
+                    return this.keys(['NULL', kk, key, kk]);
+                }
+                return this.keys(k.replace('_', ' '));
+            });
     }
     sleep(ms, ms2) {
         return new Promise(resolve => setTimeout(resolve, ms2 ? ((Math.random() * (ms2 - ms)) | 0) + ms + 1 : ms));
@@ -275,10 +281,12 @@ class Browser {
             }
         });
     }
-    url(url) {
+    url(url, sleepMS) {
         return __awaiter(this, void 0, void 0, function* () {
             if (url) {
                 yield this.webdriver.openUrl({ sessionId: this.sessionId, url });
+                if (sleepMS)
+                    yield this.sleep(sleepMS);
             }
             return this.webdriver.getUrl({ sessionId: this.sessionId })
                 .then(res => res.value);
