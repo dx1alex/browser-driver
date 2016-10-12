@@ -671,10 +671,10 @@ export interface BrowserKeys {
   Clear(): Promise<any>
   Return(): Promise<any>
   Enter(): Promise<any>
-  Shift(): Promise<any>
-  Control(): Promise<any>
-  Alt(): Promise<any>
-  Meta(): Promise<any>
+  Shift(key?): Promise<any>
+  Control(key?): Promise<any>
+  Alt(key?): Promise<any>
+  Meta(key?): Promise<any>
   Pause(): Promise<any>
   Escape(): Promise<any>
   Semicolon(): Promise<any>

@@ -130,10 +130,10 @@ export interface BrowserKeys {
     Clear(): Promise<any>;
     Return(): Promise<any>;
     Enter(): Promise<any>;
-    Shift(): Promise<any>;
-    Control(): Promise<any>;
-    Alt(): Promise<any>;
-    Meta(): Promise<any>;
+    Shift(key?: any): Promise<any>;
+    Control(key?: any): Promise<any>;
+    Alt(key?: any): Promise<any>;
+    Meta(key?: any): Promise<any>;
     Pause(): Promise<any>;
     Escape(): Promise<any>;
     Semicolon(): Promise<any>;
