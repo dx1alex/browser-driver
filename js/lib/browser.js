@@ -43,11 +43,11 @@ class Browser {
         this.gm = this.options.init.gm;
         for (let k of KEYS)
             this.key[k] = (key) => __awaiter(this, void 0, void 0, function* () {
-                if (key && ["Shift", "Control", "Alt", "Meta"].includes(key)) {
-                    let kk = k.replace('_', ' ');
+                let kk = k.replace('_', ' ');
+                if (key && ["Shift", "Control", "Alt", "Meta"].includes(kk)) {
                     return this.keys(['NULL', kk, key, kk]);
                 }
-                return this.keys(k.replace('_', ' '));
+                return this.keys(kk);
             });
     }
     sleep(ms, ms2) {

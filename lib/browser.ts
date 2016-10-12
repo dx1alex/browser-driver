@@ -35,11 +35,11 @@ export class Browser {
     this.anticaptcha = this.options.init.anticaptcha
     this.gm = this.options.init.gm
     for (let k of KEYS) this.key[k] = async (key?) => {
-      if (key && ["Shift", "Control", "Alt", "Meta"].includes(key)) {
-        let kk = k.replace('_', ' ')
+      let kk = k.replace('_', ' ')
+      if (key && ["Shift", "Control", "Alt", "Meta"].includes(kk)) {
         return this.keys(['NULL', kk, key, kk])
       }
-      return this.keys(k.replace('_', ' '))
+      return this.keys(kk)
     }
   }
   sleep(ms, ms2?) {
