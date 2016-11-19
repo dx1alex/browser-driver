@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { Chrome } from '../index'
 
 const bro = new Chrome({
