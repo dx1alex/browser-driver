@@ -2,14 +2,14 @@
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator.throw(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
         function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments)).next());
     });
 };
-const browser_1 = require('./browser');
-const path = require('path');
-const deep_assign_1 = require('./helpers/deep-assign');
+const browser_1 = require("./browser");
+const path = require("path");
+const deep_assign_1 = require("./helpers/deep-assign");
 const proxy_ext = require('fs').readFileSync(require('path').resolve(__dirname, '../../extensions/proxy.crx'), 'base64');
 const defaultOptions = {
     desiredCapabilities: {
@@ -125,7 +125,7 @@ function updateOptions(options) {
     }
     let userDir;
     if (options.dir) {
-        userDir = path.join(options.dir, options.user ? options.user + '' : '0');
+        userDir = path.join(options.dir, options.user ? options.user + '' : '');
         setOpt(args, 'user-data-dir', userDir);
     }
     if (typeof options.fullscreen === 'boolean') {

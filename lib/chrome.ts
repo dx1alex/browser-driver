@@ -112,7 +112,7 @@ function updateOptions(options: any) {
   }
   let userDir
   if (options.dir) {
-    userDir = path.join(options.dir, options.user ? options.user + '' : '0')
+    userDir = path.join(options.dir, options.user ? options.user + '' : '')
     setOpt(args, 'user-data-dir', userDir)
   }
   if (typeof options.fullscreen === 'boolean') {
